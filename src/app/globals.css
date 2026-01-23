@@ -1,26 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ===============================
+   Design tokens – Further Corporate
+   =============================== */
+
+@theme {
+  --color-primary: #0C212D;
+  --color-secondary: #112C3E;
+  --color-accent: #EE7203;
+  --color-danger: #FF3816;
+
+  --font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ===============================
+   Base styles
+   =============================== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-[color:var(--color-primary)] text-white font-sans antialiased;
+}
+
+/* ===============================
+   Reusable components
+   =============================== */
+
+.btn-primary {
+  @apply px-6 py-3 rounded-lg font-semibold transition;
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-outline {
+  @apply px-6 py-3 rounded-lg border transition;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
