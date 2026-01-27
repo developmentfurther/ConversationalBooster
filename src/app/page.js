@@ -1,7 +1,10 @@
+"use client"
 import React from 'react';
 import { MapPin, Clock, Calendar, MessageCircle, ChevronRight, Send, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import ChatbotWidget from '@/components/ChatbotWidget';
+import CapsulasGrid from '@/components/CapsulasGrid';
+import { useState } from 'react';
 
 // TU DATA PROVISTA
 const modules = [
@@ -80,6 +83,19 @@ const modules = [
 ];
 
 export default function EnglishBoosterLanding() {
+  // ESTADO PARA "EL CARRITO"
+  const [selectedCapsules, setSelectedCapsules] = useState([]);
+
+  // Lógica para añadir/quitar
+  const toggleCapsule = (title) => {
+    setSelectedCapsules(prev => {
+      if (prev.includes(title)) {
+        return prev.filter(t => t !== title);
+      } else {
+        return [...prev, title];
+      }
+    });
+  };
   
   return (
     <main className="min-h-screen bg-[#0C212D] text-white selection:bg-[#EE7203] selection:text-white font-sans">
@@ -212,56 +228,12 @@ export default function EnglishBoosterLanding() {
         </div>
       </section>
 
-      {/* --- MODULES GRID (UPDATED WITH YOUR DATA) --- */}
-      <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">The Capsules</h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">Select the modules that fit your team's specific needs. Combine them or take them individually.</p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {modules.map((mod) => (
-            <div key={mod.id} className="group relative flex flex-col bg-[#112C3E] rounded-3xl overflow-hidden border border-[#112C3E] hover:border-[#EE7203]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#000000]/40">
-              
-              {/* Gradient Top Bar using dynamic colors */}
-              <div className={`h-2 w-full bg-gradient-to-r ${mod.color}`} />
-              
-              <div className="p-8 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-4">
-                  <span className={`text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br ${mod.color} opacity-20 select-none`}>
-                    0{mod.id}
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-bold text-white mb-2 leading-tight min-h-[3.5rem] flex items-center">
-                  {mod.title}
-                </h3>
-                <p className="text-[#EE7203] text-sm font-bold uppercase tracking-wide mb-6">
-                  {mod.subtitle}
-                </p>
-                
-                {/* Description Parsing: Split by '•' and map */}
-                <div className="space-y-3 mb-8 flex-1">
-                  {mod.description.split('•').map((item, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-[#FF3816] mt-1 shrink-0" />
-                      <p className="text-sm text-gray-300 leading-snug">{item.trim()}</p>
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Objective Section */}
-                <div className="pt-6 border-t border-[#0C212D]/50 mt-auto">
-                  <p className="text-xs text-gray-400 font-bold uppercase mb-2 tracking-wider">Objective:</p>
-                  <p className="text-sm text-white italic font-medium bg-[#0C212D]/30 p-3 rounded-lg border border-[#EE7203]/10">
-                    "{mod.objective}"
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* --- AQUÍ USAMOS EL NUEVO COMPONENTE --- */}
+      <CapsulasGrid 
+        modules={modules} 
+        selectedIds={selectedCapsules} 
+        onToggle={toggleCapsule} 
+      />
 
       {/* --- FOOTER --- */}
       <footer id="contact" className="bg-[#091821] border-t border-[#112C3E] pt-20 pb-10">
@@ -307,7 +279,7 @@ export default function EnglishBoosterLanding() {
       </footer>
 
       {/* --- CHATBOT WIDGET --- */}
-      <ChatbotWidget />
+      <ChatbotWidget preSelectedCapsules={selectedCapsules} />
     </main>
   );
 }
