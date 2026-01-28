@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { MapPin, Clock, Calendar, MessageCircle, ChevronRight, Send, CheckCircle2, Globe, Mail, Phone, Target, Mic, Briefcase, Users, Zap, ArrowRight, Sparkles } from 'lucide-react';
+import { MapPin, Clock, Calendar, MessageCircle, ChevronRight, Send, CheckCircle2, Globe, Mail, Phone, Target, Mic, Briefcase, Users, Zap, ArrowRight, Sparkles, Instagram, Linkedin, Youtube} from 'lucide-react';
 import Image from 'next/image';
 import ChatbotWidget from '@/components/ChatbotWidget';
 import CapsulasGrid from '@/components/CapsulasGrid';
@@ -120,7 +120,7 @@ export default function EnglishBoosterLanding() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EE7203] group-hover:w-full transition-all duration-300"></span>
             </a>
             <a href="#modules" className="hover:text-[#EE7203] transition-colors relative group">
-              Capsules
+              Modules
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EE7203] group-hover:w-full transition-all duration-300"></span>
             </a>
             <a href="#locations" className="hover:text-[#EE7203] transition-colors relative group">
@@ -188,24 +188,22 @@ export default function EnglishBoosterLanding() {
               
               {/* Description */}
               <p className="text-lg text-gray-400 max-w-xl leading-relaxed animate-slideUp" style={{animationDelay: '0.4s'}}>
-                Highly practical <span className="text-white font-semibold">in-person capsules</span> designed to solve specific communication challenges in English. Each session targets a concrete workplace problem with clear objectives and immediate results.
+                Highly practical <span className="text-white font-semibold">in-person modules</span> designed to solve specific communication challenges in English. Each session targets a concrete workplace problem with clear objectives and immediate results.
               </p>
               
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4 pt-4 animate-slideUp" style={{animationDelay: '0.5s'}}>
-                <button className="group px-10 py-5 bg-gradient-to-r from-[#EE7203] to-[#FF3816] text-white font-bold text-lg rounded-xl hover:shadow-2xl hover:shadow-[#EE7203]/40 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 relative overflow-hidden">
-                  <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-                  <span className="relative z-10">Start Boosting</span>
-                  <ChevronRight size={24} className="relative z-10 group-hover:translate-x-2 transition-transform duration-300"/>
-                </button>
                 
                 <a 
-                  href="/brochure-further.pdf"             // 1. Ruta a tu archivo en /public
-                  download="English_Booster_Brochure.pdf" // 2. Nombre con el que se guardará en la PC del usuario
-                  className="px-10 py-5 border-2 border-[#EE7203]/40 bg-[#112C3E]/40 backdrop-blur-sm text-gray-200 hover:bg-[#112C3E] hover:border-[#EE7203] hover:text-white rounded-xl font-semibold text-lg transition-all duration-300 hover:-translate-y-1 inline-block text-center cursor-pointer"
-                >
-                  Download Brochure
-                </a>
+  href="#modules" 
+  className="group px-10 py-5 bg-gradient-to-r from-[#EE7203] to-[#FF3816] text-white font-bold text-lg rounded-xl hover:shadow-2xl hover:shadow-[#EE7203]/40 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 relative overflow-hidden"
+>
+  <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+  <span className="relative z-10">Start Boosting</span>
+  <ChevronRight size={24} className="relative z-10 group-hover:translate-x-2 transition-transform duration-300"/>
+</a>
+                
+               
               </div>
 
               {/* Quick Stats Bar */}
@@ -270,11 +268,11 @@ export default function EnglishBoosterLanding() {
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#EE7203] to-[#FF3816] flex items-center justify-center shadow-lg shadow-[#EE7203]/30">
                     <MessageCircle size={24} className="text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">What Are the Capsules?</h3>
+                  <h3 className="text-2xl font-bold text-white">What Are the Modules?</h3>
                 </div>
                 
                 <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                  <span className="text-[#EE7203] font-semibold">In-person training sessions</span>, highly practical and laser-focused. Each capsule is designed to address a specific English communication challenge in the workplace.
+                  <span className="text-[#EE7203] font-semibold">In-person training sessions</span>, highly practical and laser-focused. Each module is designed to address a specific English communication challenge in the workplace.
                 </p>
                 
                 <div className="space-y-3">
@@ -302,7 +300,7 @@ export default function EnglishBoosterLanding() {
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF3816] to-[#EE7203] flex items-center justify-center shadow-lg shadow-[#FF3816]/30">
                     <Target size={24} className="text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Capsule Objectives</h3>
+                  <h3 className="text-2xl font-bold text-white">Module Objectives</h3>
                 </div>
                 
                 <p className="text-gray-300 text-lg leading-relaxed mb-6">
@@ -382,10 +380,10 @@ export default function EnglishBoosterLanding() {
                 <h3 className="text-2xl font-bold mb-3 text-white">Duration</h3>
                 <div className="h-1 w-12 bg-gradient-to-r from-[#FF3816] to-transparent rounded-full mb-4"></div>
                 <p className="text-gray-400 leading-relaxed">
-                  Each capsule is <strong className="text-white font-bold">4 hours</strong> total.
+                  Each module lasts <strong className="text-white font-bold">4 hours</strong> total.
                 </p>
                 <p className="text-gray-500 text-sm mt-2">
-                  Divided into 2 meetings of 2 hours each
+                  Splitted into two 2-hour sessions
                 </p>
               </div>
             </div>
@@ -400,7 +398,7 @@ export default function EnglishBoosterLanding() {
                 <h3 className="text-2xl font-bold mb-3 text-white">Frequency</h3>
                 <div className="h-1 w-12 bg-gradient-to-r from-[#EE7203] to-transparent rounded-full mb-4"></div>
                 <p className="text-gray-400 leading-relaxed">
-                  <strong className="text-white font-bold">1 weekly encounter</strong> per capsule.
+                  <strong className="text-white font-bold">1 weekly encounter</strong> per module.
                 </p>
                 <p className="text-gray-500 text-sm mt-2">
                   Designed for immediate workplace application
@@ -486,72 +484,78 @@ export default function EnglishBoosterLanding() {
             {/* Right Column: Contact Info */}
             <div className="space-y-6">
               <div className="relative group">
+                {/* Glow Effect de fondo */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/5 to-transparent rounded-2xl blur-xl"></div>
+                
+                {/* Contenedor Principal (Card) */}
                 <div className="relative bg-gradient-to-br from-[#112C3E]/40 to-[#0d2230]/20 p-8 rounded-2xl border border-[#112C3E] backdrop-blur-sm">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#EE7203] to-[#FF3816] flex items-center justify-center">
+                  
+                  {/* Título */}
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#EE7203] to-[#FF3816] flex items-center justify-center shadow-lg shadow-[#EE7203]/20">
                       <Mail size={20} className="text-white" />
                     </div>
-                    <h3 className="text-white font-bold text-xl">Get in Touch</h3>
+                    <h3 className="text-white font-bold text-xl tracking-tight">Get in Touch</h3>
                   </div>
                   
-                  <div className="space-y-5">
-                    {/* Address */}
-                    <div className="flex items-start gap-4 p-4 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203]/30 transition-colors">
-                      <MapPin className="text-[#EE7203] shrink-0 mt-1" size={20}/>
-                      <div>
-                        <p className="text-white font-medium mb-1">Location</p>
-                        <p className="text-gray-400 text-sm">Arcos 2215, Belgrano - CABA</p>
+                  <div className="space-y-6">
+                    
+                    {/* 1. EMAIL (Principal) */}
+                    <div className="group flex items-start gap-4 p-5 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203]/50 hover:bg-[#112C3E]/60 transition-all duration-300">
+                      <Mail className="text-[#EE7203] shrink-0 mt-1 group-hover:scale-110 transition-transform" size={20}/>
+                      <div className="overflow-hidden">
+                        <p className="text-white font-medium mb-1">Email Us</p>
+                        <a 
+                          href="mailto:coordinacionejecutivafurther@gmail.com" 
+                          className="text-gray-400 text-sm hover:text-[#EE7203] transition-colors leading-relaxed block break-all"
+                        >
+                          coordinacionejecutivafurther@gmail.com
+                        </a>
                       </div>
                     </div>
 
-                    {/* Website */}
-                    <div className="flex items-start gap-4 p-4 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203]/30 transition-colors group">
-                      <Globe className="text-[#EE7203] shrink-0 mt-1 group-hover:rotate-12 transition-transform" size={20}/>
-                      <div>
-                        <p className="text-white font-medium mb-1">Website</p>
+                    {/* Separador Visual Sutil */}
+                    <div className="h-px w-full bg-gradient-to-r from-transparent via-[#112C3E] to-transparent"></div>
+
+                    {/* 2. REDES SOCIALES (Fila de botones) */}
+                    <div>
+                      <p className="text-gray-400 text-sm mb-4 font-medium pl-1">Follow us</p>
+                      <div className="flex gap-4">
+                        {/* Instagram */}
                         <a 
-                          href="https://www.furthercorporate.com/" 
+                          href="https://www.instagram.com/furthercorporate/" 
                           target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-gray-400 text-sm hover:text-[#EE7203] transition-colors flex items-center gap-1"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203] hover:text-[#EE7203] hover:-translate-y-1 text-gray-400 transition-all duration-300 shadow-sm"
+                          aria-label="Instagram"
                         >
-                          www.furthercorporate.com
-                          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                           <Instagram size={22} />
                         </a>
-                      </div>
-                    </div>
 
-                    {/* Email */}
-                    <div className="flex items-start gap-4 p-4 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203]/30 transition-colors">
-                      <Mail className="text-[#EE7203] shrink-0 mt-1" size={20}/>
-                      <div>
-                        <p className="text-white font-medium mb-1">Email</p>
+                        {/* LinkedIn */}
                         <a 
-                          href="mailto:incompany@furtherenglish.com" 
-                          className="text-gray-400 text-sm hover:text-[#EE7203] transition-colors"
+                          href="https://www.linkedin.com/company/furthercorporate/posts/?feedView=all" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#0077b5] hover:text-[#0077b5] hover:-translate-y-1 text-gray-400 transition-all duration-300 shadow-sm"
+                          aria-label="LinkedIn"
                         >
-                          incompany@furtherenglish.com
+                           <Linkedin size={22} />
+                        </a>
+
+                        {/* YouTube */}
+                        <a 
+                          href="https://www.youtube.com/@furthercorporate" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#FF0000] hover:text-[#FF0000] hover:-translate-y-1 text-gray-400 transition-all duration-300 shadow-sm"
+                          aria-label="YouTube"
+                        >
+                           <Youtube size={22} />
                         </a>
                       </div>
                     </div>
 
-                    {/* Phone */}
-                    {/* WhatsApp Link */}
-                    <a 
-                      href="https://api.whatsapp.com/send/?phone=5491125673306&text=Hola%21+Quiero+informaci%C3%B3n+sobre+inscripciones+y+cursos+disponibles.&type=phone_number&app_absent=0"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-start gap-4 p-4 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203]/30 transition-colors cursor-pointer group"
-                    >
-                      <Phone className="text-[#EE7203] shrink-0 mt-1 group-hover:scale-110 transition-transform" size={20}/>
-                      <div>
-                        <p className="text-white font-medium mb-1">WhatsApp</p>
-                        <p className="text-gray-400 text-sm group-hover:text-[#EE7203] transition-colors">
-                          Chat with us
-                        </p>
-                      </div>
-                    </a>
                   </div>
                 </div>
               </div>

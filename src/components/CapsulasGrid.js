@@ -6,9 +6,9 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-20">
-        <h2 className="text-3xl md:text-5xl font-bold mb-6">The Capsules</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mb-6">The Modules</h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Select the capsules you are interested in to build your plan.
+          Select the modules you are interested in to build your plan.
         </p>
       </div>
 
