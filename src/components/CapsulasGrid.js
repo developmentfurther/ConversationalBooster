@@ -72,7 +72,7 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                 <div className="pt-6 border-t border-[#0C212D]/50 mt-auto">
                   <p className="text-xs text-gray-400 font-bold uppercase mb-2 tracking-wider">Objective:</p>
                   <p className={`text-sm italic font-medium p-3 rounded-lg border transition-colors ${isSelected ? 'bg-[#EE7203]/10 border-[#EE7203]/30 text-white' : 'bg-[#0C212D]/30 border-[#EE7203]/10 text-gray-400'}`}>
-                    {mod.objective}&quot
+                    {mod.objective}
                   </p>
                 </div>
               </div>
