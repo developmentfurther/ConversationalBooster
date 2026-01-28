@@ -125,12 +125,14 @@ export default function EnglishBoosterLanding() {
         </div>
       </nav>
 
-      {/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION CON VIDEO --- */}
       <section className="relative pt-40 pb-24 px-6 overflow-hidden">
-        {/* Glow Effect */}
+        {/* Glow Effect de fondo */}
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#EE7203] opacity-[0.08] blur-[120px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+          
+          {/* COLUMNA IZQUIERDA: TEXTO Y CTA */}
           <div className="space-y-8">
             <div className="inline-flex items-center px-3 py-1 bg-[#112C3E] text-[#EE7203] text-xs font-bold tracking-widest uppercase rounded border border-[#EE7203]/20">
               <span className="w-2 h-2 rounded-full bg-[#FF3816] mr-2 animate-pulse"></span>
@@ -160,28 +162,32 @@ export default function EnglishBoosterLanding() {
             </div>
           </div>
           
-          {/* Hero Statistics/Cards Grid */}
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#112C3E]/80 backdrop-blur-sm p-6 rounded-2xl border-t-4 border-[#EE7203] shadow-xl">
-                <h3 className="text-4xl font-bold text-white mb-2">100%</h3>
-                <p className="text-gray-400 text-sm font-medium">Practical Real-World Scenarios</p>
-              </div>
-              <div className="bg-[#112C3E]/80 backdrop-blur-sm p-6 rounded-2xl border-t-4 border-[#FF3816] shadow-xl mt-8">
-                <h3 className="text-4xl font-bold text-white mb-2">Live</h3>
-                <p className="text-gray-400 text-sm font-medium">Feedback & Simulations</p>
-              </div>
-              <div className="col-span-2 bg-gradient-to-r from-[#112C3E] to-[#0C212D] p-6 rounded-2xl border border-[#EE7203]/10 flex items-center justify-between shadow-xl">
-                <div>
-                  <p className="font-bold text-white text-lg">Flexible Format</p>
-                  <p className="text-sm text-gray-400">Take capsules independently</p>
-                </div>
-                <div className="bg-[#0C212D] p-3 rounded-full">
-                   <Calendar className="text-[#EE7203]" />
-                </div>
-              </div>
+          {/* COLUMNA DERECHA: VIDEO PLAYER */}
+          <div className="relative group">
+            {/* Efecto decorativo detrás del video */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#EE7203] to-[#FF3816] rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            
+            {/* Contenedor del Video */}
+            <div className="relative rounded-2xl overflow-hidden border border-[#EE7203]/30 bg-[#000] shadow-2xl shadow-[#EE7203]/20">
+              <video 
+                className="w-full h-auto object-cover aspect-video"
+                controls 
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+                preload="metadata"
+              >
+                {/* ASEGÚRATE DE QUE LA RUTA COINCIDA CON TU ARCHIVO EN /public */}
+                <source src="/videos/video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
+
+            {/* Etiqueta flotante opcional sobre el video */}
+            <div className="absolute -bottom-6 -right-6 -z-10 w-24 h-24 bg-[url('/images/dots.png')] opacity-50"></div>
           </div>
+
         </div>
       </section>
 
