@@ -137,7 +137,6 @@ export default function EnglishBoosterLanding() {
 
 
       {/* --- ENHANCED HERO SECTION CON VIDEO --- */}
-      {/* --- ENHANCED HERO SECTION CON VIDEO --- */}
       <section className="relative pt-40 pb-32 px-6 overflow-hidden">
         
         {/* STATIC Background Effects (Luz ambiental fija) */}
@@ -257,93 +256,96 @@ export default function EnglishBoosterLanding() {
             </div>
           </div>
 
-          {/* PROGRAM DETAILS SECTION */}
-          <div className="grid md:grid-cols-2 gap-8 mt-24 animate-slideUp" style={{animationDelay: '0.7s'}}>
+        </div>
+      </section>
+
+      {/* --- NUEVA SECCIÓN: PROGRAM DETAILS (CON FONDO DISTINTO) --- */}
+      <section className="py-24 bg-[#08151D] border-t border-[#112C3E] relative overflow-hidden">
+        
+        {/* Decoración de fondo sutil para esta sección */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
+            <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-[#EE7203]/5 rounded-full blur-[80px]" />
+            <div className="absolute bottom-[20%] right-[-10%] w-[400px] h-[400px] bg-[#FF3816]/5 rounded-full blur-[80px]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          
+          {/* Título de la sección (Opcional, para dar contexto) */}
+          <div className="text-center mb-16">
+             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Methodology & Objectives</h2>
+             <div className="h-1 w-20 bg-gradient-to-r from-[#EE7203] to-[#FF3816] mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12">
             
-            {/* What are the Capsules? */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/5 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative p-8 bg-gradient-to-br from-[#112C3E]/60 to-[#0d2230]/40 backdrop-blur-sm rounded-2xl border border-[#EE7203]/20 hover:border-[#EE7203]/40 transition-all duration-300 hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#EE7203] to-[#FF3816] flex items-center justify-center shadow-lg shadow-[#EE7203]/30">
-                    <MessageCircle size={24} className="text-white" />
+            {/* What are the Modules? */}
+            <div className="relative group h-full">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/5 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+              <div className="relative h-full p-8 bg-[#0C212D] rounded-3xl border border-[#112C3E] hover:border-[#EE7203]/30 transition-all duration-300 hover:-translate-y-1 shadow-2xl">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-14 h-14 rounded-2xl bg-[#112C3E] flex items-center justify-center border border-[#EE7203]/20 group-hover:scale-110 transition-transform duration-300">
+                    <MessageCircle size={28} className="text-[#EE7203]" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">What Are the Modules?</h3>
                 </div>
                 
-                <p className="text-gray-300 text-lg leading-relaxed mb-4">
+                <p className="text-gray-300 text-lg leading-relaxed mb-8">
                   <span className="text-[#EE7203] font-semibold">In-person training sessions</span>, highly practical and laser-focused. Each module is designed to address a specific English communication challenge in the workplace.
                 </p>
                 
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#EE7203] mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-400"><span className="text-white font-medium">Clear structure:</span> Each session has a defined start and finish</p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-[#091821] border border-[#112C3E]">
+                    <div className="w-2 h-2 rounded-full bg-[#EE7203] mt-2.5 flex-shrink-0 shadow-[0_0_8px_#EE7203]"></div>
+                    <p className="text-gray-400"><span className="text-white font-medium block mb-1">Clear structure</span> Each session has a defined start and finish.</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#EE7203] mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-400"><span className="text-white font-medium">Targeted approach:</span> One problem, one solution, immediate impact</p>
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-[#091821] border border-[#112C3E]">
+                    <div className="w-2 h-2 rounded-full bg-[#EE7203] mt-2.5 flex-shrink-0 shadow-[0_0_8px_#EE7203]"></div>
+                    <p className="text-gray-400"><span className="text-white font-medium block mb-1">Targeted approach</span> One problem, one solution, immediate impact.</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#EE7203] mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-400"><span className="text-white font-medium">Active learning:</span> Practice-based methodology with real-world scenarios</p>
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-[#091821] border border-[#112C3E]">
+                    <div className="w-2 h-2 rounded-full bg-[#EE7203] mt-2.5 flex-shrink-0 shadow-[0_0_8px_#EE7203]"></div>
+                    <p className="text-gray-400"><span className="text-white font-medium block mb-1">Active learning</span> Practice-based methodology with real-world scenarios.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Capsule Objectives */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#FF3816]/5 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative p-8 bg-gradient-to-br from-[#112C3E]/60 to-[#0d2230]/40 backdrop-blur-sm rounded-2xl border border-[#EE7203]/20 hover:border-[#EE7203]/40 transition-all duration-300 hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF3816] to-[#EE7203] flex items-center justify-center shadow-lg shadow-[#FF3816]/30">
-                    <Target size={24} className="text-white" />
+            {/* Module Objectives */}
+            <div className="relative group h-full">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FF3816]/5 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+              <div className="relative h-full p-8 bg-[#0C212D] rounded-3xl border border-[#112C3E] hover:border-[#FF3816]/30 transition-all duration-300 hover:-translate-y-1 shadow-2xl">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-14 h-14 rounded-2xl bg-[#112C3E] flex items-center justify-center border border-[#FF3816]/20 group-hover:scale-110 transition-transform duration-300">
+                    <Target size={28} className="text-[#FF3816]" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">Module Objectives</h3>
                 </div>
                 
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                  Every session is designed with <span className="text-[#EE7203] font-semibold">four core goals</span> in mind:
+                <p className="text-gray-300 text-lg leading-relaxed mb-8">
+                  Every session is designed with <span className="text-[#FF3816] font-semibold">four core goals</span> in mind to ensure maximum efficiency:
                 </p>
                 
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 bg-[#0d2230]/60 rounded-xl border border-[#EE7203]/10 hover:border-[#EE7203]/30 transition-colors duration-300">
-                    <div className="w-8 h-8 rounded-lg bg-[#EE7203]/20 flex items-center justify-center flex-shrink-0 text-[#EE7203] font-bold">1</div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">Solve Real Workplace Situations</h4>
-                      <p className="text-gray-400 text-sm">Address actual challenges from your professional environment</p>
-                    </div>
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#EE7203] pl-4">
+                    <span className="text-[#EE7203] font-bold text-lg">01</span>
+                    <p className="text-gray-300 text-sm font-medium">Solve Real Workplace Situations</p>
                   </div>
-                  
-                  <div className="flex items-start gap-4 p-4 bg-[#0d2230]/60 rounded-xl border border-[#EE7203]/10 hover:border-[#EE7203]/30 transition-colors duration-300">
-                    <div className="w-8 h-8 rounded-lg bg-[#EE7203]/20 flex items-center justify-center flex-shrink-0 text-[#EE7203] font-bold">2</div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">Build Fluency & Confidence</h4>
-                      <p className="text-gray-400 text-sm">Gain security in professional contexts through practice</p>
-                    </div>
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#FF3816] pl-4">
+                    <span className="text-[#FF3816] font-bold text-lg">02</span>
+                    <p className="text-gray-300 text-sm font-medium">Build Fluency & Confidence</p>
                   </div>
-                  
-                  <div className="flex items-start gap-4 p-4 bg-[#0d2230]/60 rounded-xl border border-[#EE7203]/10 hover:border-[#EE7203]/30 transition-colors duration-300">
-                    <div className="w-8 h-8 rounded-lg bg-[#EE7203]/20 flex items-center justify-center flex-shrink-0 text-[#EE7203] font-bold">3</div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">Acquire Immediate-Use Vocabulary</h4>
-                      <p className="text-gray-400 text-sm">Learn structures and phrases you can apply right away</p>
-                    </div>
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#EE7203] pl-4">
+                    <span className="text-[#EE7203] font-bold text-lg">03</span>
+                    <p className="text-gray-300 text-sm font-medium">Acquire Immediate-Use Vocabulary</p>
                   </div>
-                  
-                  <div className="flex items-start gap-4 p-4 bg-[#0d2230]/60 rounded-xl border border-[#EE7203]/10 hover:border-[#EE7203]/30 transition-colors duration-300">
-                    <div className="w-8 h-8 rounded-lg bg-[#EE7203]/20 flex items-center justify-center flex-shrink-0 text-[#EE7203] font-bold">4</div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">Practice with Live Feedback</h4>
-                      <p className="text-gray-400 text-sm">Engage in real simulations and receive instant corrections</p>
-                    </div>
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#FF3816] pl-4">
+                    <span className="text-[#FF3816] font-bold text-lg">04</span>
+                    <p className="text-gray-300 text-sm font-medium">Practice with Live Feedback</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
