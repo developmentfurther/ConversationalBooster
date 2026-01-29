@@ -105,7 +105,7 @@ const faqs = [
 export default function EnglishBoosterLanding() {
   // ESTADO PARA "EL CARRITO"
   const [selectedCapsules, setSelectedCapsules] = useState([]);
-
+  const [isChatOpen, setIsChatOpen] = useState(false);
   // Lógica para añadir/quitar
   const toggleCapsule = (title) => {
     setSelectedCapsules(prev => {
@@ -147,10 +147,13 @@ export default function EnglishBoosterLanding() {
               Locations
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EE7203] group-hover:w-full transition-all duration-300"></span>
             </a>
-            <a href="#contact" className="group px-6 py-2.5 bg-gradient-to-r from-[#FF3816] to-[#EE7203] text-white rounded-full hover:shadow-xl hover:shadow-[#FF3816]/30 transition-all duration-300 hover:-translate-y-0.5 font-semibold flex items-center gap-2">
-              Contact Us
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
+            <button 
+              onClick={() => setIsChatOpen(true)} // <-- ESTO ABRE EL CHAT
+              className="group px-6 py-2.5 bg-gradient-to-r from-[#FF3816] to-[#EE7203] text-white rounded-full hover:shadow-xl hover:shadow-[#FF3816]/30 transition-all duration-300 hover:-translate-y-0.5 font-semibold flex items-center gap-2 cursor-pointer"
+            >
+              <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
+              Register via Bot
+            </button>
           </div>
         </div>
       </nav>
@@ -750,7 +753,11 @@ export default function EnglishBoosterLanding() {
       </footer>
 
       {/* --- CHATBOT WIDGET --- */}
-<ChatbotWidget preSelectedModules={selectedCapsules} />
+<ChatbotWidget 
+        preSelectedModules={selectedCapsules} 
+        isOpen={isChatOpen}           // Le decimos si estar abierto o cerrado
+        setIsOpen={setIsChatOpen}     // Le damos la función para cerrarse
+      />
 
    
       

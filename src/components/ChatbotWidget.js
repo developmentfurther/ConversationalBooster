@@ -5,8 +5,7 @@ import { MessageCircle, Send, X, ArrowUpRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 // Asegúrate de que en el padre le estés pasando la prop correcta: preSelectedModules={selectedCapsules}
-export default function ChatbotWidget({ preSelectedModules = [] }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOpen }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
