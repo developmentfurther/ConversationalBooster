@@ -14,7 +14,8 @@ const modules = [
     subtitle: "From hesitation to clarity",
     description: "Clear and effective personal presentations • Key vocabulary for work contexts • Guided roleplays: 'Meet your global team'",
     objective: "Break through speaking barriers and gain immediate confidence",
-    color: "from-[#EE7203] to-[#FF3816]"
+    color: "from-[#EE7203] to-[#FF3816]",
+    schedule: { s1: "Feb 23", s2: "Mar 02" }
   },
   {
     id: 2,
@@ -22,7 +23,8 @@ const modules = [
     subtitle: "Sound clearer, sound more natural",
     description: "Problematic sounds for Spanish speakers • Quick techniques to sound more natural • Live mini-coaching",
     objective: "Communicate with clarity and proper pronunciation",
-    color: "from-[#FF3816] to-[#EE7203]"
+    color: "from-[#FF3816] to-[#EE7203]",
+    schedule: { s1: "Mar 09", s2: "Mar 16" }
   },
   {
     id: 3,
@@ -30,7 +32,8 @@ const modules = [
     subtitle: "The English you actually use",
     description: "Key phrases for meetings, emails and chats • Common mistakes (and how to avoid them) • Practical simulation: daily stand-up meeting",
     objective: "Communicate naturally in day-to-day work",
-    color: "from-[#EE7203] to-[#FF3816]"
+    color: "from-[#EE7203] to-[#FF3816]",
+    schedule: { s1: "Mar 30", s2: "Apr 06" }
   },
   {
     id: 4,
@@ -38,7 +41,8 @@ const modules = [
     subtitle: "Participate, agree, disagree, move forward",
     description: "How to intervene clearly in global meetings • Language to agree, disagree and guide conversations • Roleplay with real project agenda",
     objective: "Actively participate in meetings",
-    color: "from-[#FF3816] to-[#EE7203]"
+    color: "from-[#FF3816] to-[#EE7203]",
+    schedule: { s1: "Apr 13", s2: "Apr 20" }
   },
   {
     id: 5,
@@ -46,7 +50,8 @@ const modules = [
     subtitle: "Say it clearly. Get it done.",
     description: "Simple structures for clear messages • Useful templates: clarify · request · escalate • Asynchronous communication simulation (Slack/Teams)",
     objective: "Write clear, brief and effective messages",
-    color: "from-[#EE7203] to-[#FF3816]"
+    color: "from-[#EE7203] to-[#FF3816]",
+    schedule: { s1: "Apr 27", s2: "May 04" }
   },
   {
     id: 6,
@@ -54,7 +59,8 @@ const modules = [
     subtitle: "Connect beyond language",
     description: "Professional small talk • Language for client and colleague conversations • Keys to handle different cultural styles",
     objective: "Build connection and trust in international contexts",
-    color: "from-[#FF3816] to-[#EE7203]"
+    color: "from-[#FF3816] to-[#EE7203]",
+    schedule: { s1: "May 11", s2: "May 18" }
   },
   {
     id: 7,
@@ -62,7 +68,8 @@ const modules = [
     subtitle: "Clear messages, strong delivery",
     description: "Storytelling applied to professional contexts • How to structure demos and status updates • Live feedback on 2-minute presentations",
     objective: "Present with clarity, focus and authority",
-    color: "from-[#EE7203] to-[#FF3816]"
+    color: "from-[#EE7203] to-[#FF3816]",
+    schedule: { s1: "Jun 01", s2: "Jun 08" }
   },
   {
     id: 8,
@@ -70,7 +77,8 @@ const modules = [
     subtitle: "Drive decisions",
     description: "Language for workshops, ideation and decision-making • Request clarifications, align teams, synthesize agreements • Simulation: discovery session",
     objective: "Facilitate complex conversations in English",
-    color: "from-[#FF3816] to-[#EE7203]"
+    color: "from-[#FF3816] to-[#EE7203]",
+    schedule: { s1: "Jun 22", s2: "Jun 29" }
   },
   {
     id: 9,
@@ -78,7 +86,8 @@ const modules = [
     subtitle: "Say what needs to be said",
     description: "Handling objections and disagreements • Language for risks, limits and misalignments • Real project and client scenarios",
     objective: "Communicate difficult topics with clarity and professionalism",
-    color: "from-[#EE7203] to-[#FF3816]"
+    color: "from-[#EE7203] to-[#FF3816]",
+    schedule: { s1: "Jul 06", s2: "Jul 13" }
   }
 ];
 

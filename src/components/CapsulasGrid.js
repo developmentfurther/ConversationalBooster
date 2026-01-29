@@ -1,18 +1,17 @@
 import React from 'react';
-import { CheckCircle2, Plus, Check, MessageCircle, Sparkles } from 'lucide-react';
+// 1. IMPORTA EL ICONO CALENDAR
+import { CheckCircle2, Plus, Check, MessageCircle, Sparkles, Calendar } from 'lucide-react';
 
 export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
   
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       
-      {/* HEADER DE LA SECCIÓN */}
       <div className="text-center mb-20">
         <h2 className="text-3xl md:text-5xl font-bold mb-6">Modules</h2>
         
-        {/* --- NUEVO BLOQUE EXPLICATIVO DEL CHATBOT --- */}
+        {/* Banner explicativo del Chatbot */}
         <div className="max-w-2xl mx-auto mb-8 bg-[#112C3E]/50 border border-[#EE7203]/20 rounded-2xl p-6 relative overflow-hidden group hover:border-[#EE7203]/40 transition-colors">
-            {/* Efecto de brillo de fondo */}
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#EE7203]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none"></div>
             
             <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
@@ -25,15 +24,13 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                     </h3>
                     <p className="text-gray-400 text-sm leading-relaxed">
                         Select the modules you are interested in by clicking the <span className="inline-flex items-center justify-center w-5 h-5 bg-[#0C212D] rounded-full border border-[#EE7203]/30 mx-1"><Plus size={12} className="text-[#EE7203]"/></span> button. 
-                        Once you're ready, open the <strong>"Register in Bot"</strong> assistant to complete your enrollment instantly.
+                        Once you're ready, open the <strong>"Register via Chat"</strong> assistant to complete your enrollment instantly.
                     </p>
                 </div>
             </div>
         </div>
-
       </div>
 
-      {/* GRID DE TARJETAS */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {modules.map((mod) => {
           const isSelected = selectedIds.includes(mod.title);
@@ -47,19 +44,14 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                 : 'border-[#112C3E] hover:border-[#EE7203]/30 hover:shadow-[#000000]/40'
               }`}
             >
-              
-              {/* Gradient Top Bar */}
               <div className={`h-2 w-full bg-gradient-to-r ${mod.color}`} />
               
               <div className="p-8 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-4">
-                  
-                  {/* --- NÚMERO DE FONDO (OPACIDAD AUMENTADA A 70%) --- */}
                   <span className={`text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br ${mod.color} opacity-70 select-none`}>
                     0{mod.id}
                   </span>
                   
-                  {/* Botón de selección */}
                   <button
                     onClick={() => onToggle(mod.title)}
                     className={`
@@ -82,7 +74,6 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                   {mod.subtitle}
                 </p>
                 
-                {/* Description */}
                 <div className="space-y-3 mb-8 flex-1">
                   {mod.description.split('•').map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
@@ -92,6 +83,27 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                   ))}
                 </div>
                 
+                {/* --- NUEVA SECCIÓN DE CALENDARIO --- */}
+                {mod.schedule && (
+                  <div className="mb-6 p-3 bg-[#091821] rounded-xl border border-[#1E3A4C] flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-gray-400">
+                      <Calendar size={16} className="text-[#EE7203]" />
+                      <span className="text-xs font-bold uppercase tracking-wide">Dates</span>
+                    </div>
+                    <div className="flex gap-3 text-sm font-mono text-white">
+                      <div className="flex flex-col items-end leading-none gap-1">
+                        <span className="opacity-60 text-[10px] uppercase">Session 1</span>
+                        <span>{mod.schedule.s1}</span>
+                      </div>
+                      <div className="w-px bg-[#1E3A4C]"></div>
+                      <div className="flex flex-col items-start leading-none gap-1">
+                        <span className="opacity-60 text-[10px] uppercase">Session 2</span>
+                        <span>{mod.schedule.s2}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Objective */}
                 <div className="pt-6 border-t border-[#0C212D]/50 mt-auto">
                   <p className="text-xs text-gray-400 font-bold uppercase mb-2 tracking-wider">Objective:</p>
@@ -101,7 +113,6 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                 </div>
               </div>
 
-              {/* Overlay visual cuando está seleccionado */}
               {isSelected && (
                 <div className="absolute inset-0 bg-[#EE7203]/5 pointer-events-none" />
               )}
