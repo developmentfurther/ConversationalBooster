@@ -1,20 +1,42 @@
 import React from 'react';
-import { CheckCircle2, Plus, Check } from 'lucide-react';
+import { CheckCircle2, Plus, Check, MessageCircle, Sparkles } from 'lucide-react';
 
 export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
   
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
+      
+      {/* HEADER DE LA SECCIÓN */}
       <div className="text-center mb-20">
         <h2 className="text-3xl md:text-5xl font-bold mb-6">Modules</h2>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Select the modules you are interested in to build your plan.
-        </p>
+        
+        {/* --- NUEVO BLOQUE EXPLICATIVO DEL CHATBOT --- */}
+        <div className="max-w-2xl mx-auto mb-8 bg-[#112C3E]/50 border border-[#EE7203]/20 rounded-2xl p-6 relative overflow-hidden group hover:border-[#EE7203]/40 transition-colors">
+            {/* Efecto de brillo de fondo */}
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#EE7203]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none"></div>
+            
+            <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+                <div className="w-12 h-12 bg-[#EE7203]/10 rounded-full flex items-center justify-center shrink-0 border border-[#EE7203]/20">
+                    <MessageCircle size={24} className="text-[#EE7203]" />
+                </div>
+                <div>
+                    <h3 className="text-white font-bold text-lg mb-1 flex items-center justify-center md:justify-start gap-2">
+                        How to Register <Sparkles size={14} className="text-[#EE7203]" />
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                        Select the modules you are interested in by clicking the <span className="inline-flex items-center justify-center w-5 h-5 bg-[#0C212D] rounded-full border border-[#EE7203]/30 mx-1"><Plus size={12} className="text-[#EE7203]"/></span> button. 
+                        Once you're ready, open the <strong>"Register via Chat"</strong> assistant to complete your enrollment instantly.
+                    </p>
+                </div>
+            </div>
+        </div>
+
       </div>
 
+      {/* GRID DE TARJETAS */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {modules.map((mod) => {
-          const isSelected = selectedIds.includes(mod.title); // Usamos el Título como ID para facilitar lectura al bot
+          const isSelected = selectedIds.includes(mod.title);
 
           return (
             <div 
@@ -31,11 +53,13 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
               
               <div className="p-8 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-4">
+                  
+                  {/* --- NÚMERO DE FONDO (OPACIDAD AUMENTADA A 70%) --- */}
                   <span className={`text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br ${mod.color} opacity-70 select-none`}>
                     0{mod.id}
                   </span>
                   
-                  {/* --- BOTÓN DE SELECCIÓN (EL CARRITO) --- */}
+                  {/* Botón de selección */}
                   <button
                     onClick={() => onToggle(mod.title)}
                     className={`
