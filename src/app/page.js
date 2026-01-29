@@ -459,7 +459,7 @@ export default function EnglishBoosterLanding() {
                     { city: 'Rosario', room: 'Pichincha Room' },
                     { city: 'Córdoba', room: 'Córdoba Room' },
                     { city: 'Salta', room: 'Cafayate Room' },
-                    { city: 'Mendoza', room: 'Mendoza Room' },
+                    { city: 'Mendoza', room: 'Valle de Uco Room' },
                   ].map((item) => (
                     <div 
                         key={item.city} 
