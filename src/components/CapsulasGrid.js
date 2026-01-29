@@ -6,7 +6,7 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-20">
-        <h2 className="text-3xl md:text-5xl font-bold mb-6">The Modules</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mb-6">Modules</h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
           Select the modules you are interested in to build your plan.
         </p>
@@ -31,7 +31,7 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
               
               <div className="p-8 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-4">
-                  <span className={`text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br ${mod.color} opacity-20 select-none`}>
+                  <span className={`text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br ${mod.color} opacity-70 select-none`}>
                     0{mod.id}
                   </span>
                   

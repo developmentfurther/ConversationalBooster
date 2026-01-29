@@ -44,7 +44,7 @@ const modules = [
     id: 5,
     title: "Clear Email & Chat Communication",
     subtitle: "Say it clearly. Get it done.",
-    description: "Simple structures for clear messages • Useful templates: clarify · request · escalate • Async communication simulation (Slack/Teams)",
+    description: "Simple structures for clear messages • Useful templates: clarify · request · escalate • Asynchronous communication simulation (Slack/Teams)",
     objective: "Write clear, brief and effective messages",
     color: "from-[#EE7203] to-[#FF3816]"
   },
@@ -410,7 +410,7 @@ export default function EnglishBoosterLanding() {
                   Each module lasts <strong className="text-white font-bold">4 hours</strong> total.
                 </p>
                 <div className="inline-block bg-[#112C3E] px-4 py-2 rounded-lg border border-[#EE7203]/20 text-sm text-gray-300">
-                    Splitted into <span className="text-[#EE7203] font-semibold">two 2-hour sessions</span>
+                    Split into <span className="text-[#EE7203] font-semibold">two 2-hour sessions</span>
                 </div>
               </div>
             </div>
@@ -515,13 +515,13 @@ export default function EnglishBoosterLanding() {
                 </h2>
                 
                 <p className="text-gray-300 text-lg leading-relaxed">
-                  Discover the <strong>Conversational Club Federal</strong>. Eliminate the gap between classroom English and authentic real-world communication.
+                  Join our <strong>Federal Conversational Club</strong>. Eliminate the gap between classroom English and authentic real-world communication.
                 </p>
 
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-gray-400">
                     <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
-                    <span>Tailored for <strong>B1 & B2 Ahead</strong> Levels</span>
+                    <span>Tailored for <strong>B1 and above</strong> Levels</span>
                   </li>
                   <li className="flex items-center gap-3 text-gray-400">
                     <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
