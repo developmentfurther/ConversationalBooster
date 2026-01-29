@@ -25,7 +25,7 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                     </h3>
                     <p className="text-gray-400 text-sm leading-relaxed">
                         Select the modules you are interested in by clicking the <span className="inline-flex items-center justify-center w-5 h-5 bg-[#0C212D] rounded-full border border-[#EE7203]/30 mx-1"><Plus size={12} className="text-[#EE7203]"/></span> button. 
-                        Once you're ready, open the <strong>"Register via Chat"</strong> assistant to complete your enrollment instantly.
+                        Once you're ready, open the <strong>"Register in Bot"</strong> assistant to complete your enrollment instantly.
                     </p>
                 </div>
             </div>

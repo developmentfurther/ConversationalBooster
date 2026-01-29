@@ -152,7 +152,7 @@ export default function EnglishBoosterLanding() {
               className="group px-6 py-2.5 bg-gradient-to-r from-[#FF3816] to-[#EE7203] text-white rounded-full hover:shadow-xl hover:shadow-[#FF3816]/30 transition-all duration-300 hover:-translate-y-0.5 font-semibold flex items-center gap-2 cursor-pointer"
             >
               <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
-              Register via Chat
+              Register in Bot
             </button>
           </div>
         </div>
