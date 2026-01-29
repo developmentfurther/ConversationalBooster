@@ -92,6 +92,10 @@ export async function POST(req) {
       "englishLevel": "...",
       "motivation": "..."
     }
+        **CRITICAL**: In the "modules" array, you MUST use the EXACT module titles from the KNOWLEDGE BASE 
+    (e.g., "Boost Your Speaking Confidence", "Pronunciation Essentials", "Meetings That Flow"), 
+    NOT generic placeholders like "Module 1", "Module 2", or "Module 3".
+    Map the user's selected numbers (1-9) to their corresponding full module names before outputting the JSON.
 
     ---
 
