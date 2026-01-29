@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { MapPin, Clock, Calendar, MessageCircle, ChevronRight, Send, CheckCircle2, Globe, Mail, Phone, Target, Mic, Briefcase, Users, Zap, ArrowRight, Sparkles, Instagram, Linkedin, Youtube} from 'lucide-react';
+import { MapPin, Clock, Calendar, MessageCircle, ChevronRight, Send, CheckCircle2, Globe, Mail, Phone, Target, Mic, Briefcase, Users, Zap, ArrowRight, Sparkles, Instagram, Linkedin, Youtube, HelpCircle, ExternalLink, Star } from 'lucide-react';
 import Image from 'next/image';
 import ChatbotWidget from '@/components/ChatbotWidget';
 import CapsulasGrid from '@/components/CapsulasGrid';
@@ -79,6 +79,26 @@ const modules = [
     description: "Handling objections and disagreements • Language for risks, limits and misalignments • Real project and client scenarios",
     objective: "Communicate difficult topics with clarity and professionalism",
     color: "from-[#EE7203] to-[#FF3816]"
+  }
+];
+
+// DATA PARA FAQs (Traducido)
+const faqs = [
+  {
+    question: "Do I have to attend all modules?",
+    answer: "No. You can choose the ones that interest you. Keep in mind that your registration is a commitment to attend both sessions of the topic you selected. In case of absence, Further reserves the right to review access conditions to new sessions."
+  },
+  {
+    question: "Do I need an advanced English level?",
+    answer: "No. The workshop is designed for everyone to join. Keep in mind that we won't focus on grammar, but rather on practical tools with short-term impact."
+  },
+  {
+    question: "Is there an exam or evaluation?",
+    answer: "No. This is a Practical Workshop designed to enhance communication skills needed for daily work life. No tests, just practice."
+  },
+  {
+    question: "Will I receive a certificate?",
+    answer: "Absolutely. As with all our academic programs, upon completion, a certificate will be issued to those who have participated in at least 75% of the modules."
   }
 ];
 
@@ -349,86 +369,113 @@ export default function EnglishBoosterLanding() {
         </div>
       </section>
 
-      {/* --- ENHANCED LOGISTICS SECTION --- */}
+     {/* --- LOGISTICS SECTION (LAYOUT "BENTO" / 2 FILAS) --- */}
       <section id="program" className="relative py-24 bg-[#091821] border-y border-[#112C3E] overflow-hidden">
-        {/* Subtle background pattern */}
+        
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(238,114,3,0.1),transparent_50%)]"></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          {/* Section Header */}
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          
+          {/* Header igual que antes */}
           <div className="text-center mb-16 animate-slideUp">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#112C3E]/50 rounded-full border border-[#EE7203]/20 mb-6">
               <Sparkles size={16} className="text-[#EE7203]" />
               <span className="text-sm font-semibold text-[#EE7203] uppercase tracking-wide">Program Details</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              How It <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EE7203] to-[#FF3816]">Works</span>
+              Program <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EE7203] to-[#FF3816]">Logistics</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Flexible, focused sessions designed to fit your team's schedule and needs
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Logistic Card 1 - Duration */}
+          {/* --- GRID NUEVO: 2 COLUMNAS --- */}
+          <div className="grid md:grid-cols-2 gap-6">
+            
+            {/* 1. DURATION */}
             <div className="group relative">
               <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/10 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#FF3816]/20">
-                  <Clock className="w-8 h-8 text-[#FF3816]" />
+              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full">
+                <div className="flex items-start justify-between mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#FF3816]/20">
+                    <Clock className="w-7 h-7 text-[#FF3816]" />
+                    </div>
+                    <span className="bg-[#FF3816]/10 text-[#FF3816] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-[#FF3816]/20">Time</span>
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-white">Duration</h3>
-                <div className="h-1 w-12 bg-gradient-to-r from-[#FF3816] to-transparent rounded-full mb-4"></div>
-                <p className="text-gray-400 leading-relaxed">
+                <h3 className="text-2xl font-bold mb-2 text-white">Duration</h3>
+                <p className="text-gray-400 leading-relaxed mb-4">
                   Each module lasts <strong className="text-white font-bold">4 hours</strong> total.
                 </p>
-                <p className="text-gray-500 text-sm mt-2">
-                  Splitted into two 2-hour sessions
-                </p>
+                <div className="inline-block bg-[#112C3E] px-4 py-2 rounded-lg border border-[#EE7203]/20 text-sm text-gray-300">
+                    Splitted into <span className="text-[#EE7203] font-semibold">two 2-hour sessions</span>
+                </div>
               </div>
             </div>
             
-            {/* Logistic Card 2 - Frequency */}
+            {/* 2. FREQUENCY */}
             <div className="group relative">
               <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/10 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#EE7203]/20">
-                  <Calendar className="w-8 h-8 text-[#EE7203]" />
+              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full">
+                <div className="flex items-start justify-between mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#EE7203]/20">
+                    <Calendar className="w-7 h-7 text-[#EE7203]" />
+                    </div>
+                    <span className="bg-[#EE7203]/10 text-[#EE7203] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-[#EE7203]/20">Pace</span>
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-white">Frequency</h3>
-                <div className="h-1 w-12 bg-gradient-to-r from-[#EE7203] to-transparent rounded-full mb-4"></div>
-                <p className="text-gray-400 leading-relaxed">
+                <h3 className="text-2xl font-bold mb-2 text-white">Frequency</h3>
+                <p className="text-gray-400 leading-relaxed mb-4">
                   <strong className="text-white font-bold">1 weekly encounter</strong> per module.
                 </p>
-                <p className="text-gray-500 text-sm mt-2">
-                  Designed for immediate workplace application
-                </p>
+                <div className="inline-block bg-[#112C3E] px-4 py-2 rounded-lg border border-[#EE7203]/20 text-sm text-gray-300">
+                    Designed for <span className="text-[#EE7203] font-semibold">immediate application</span>
+                </div>
               </div>
             </div>
 
-            {/* Logistic Card 3 - Locations */}
-            <div id="locations" className="group relative">
+            {/* 3. LOCATIONS (FULL WIDTH) */}
+            <div id="locations" className="group relative md:col-span-2">
               <div className="absolute inset-0 bg-gradient-to-br from-[#FF3816]/10 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#FF3816]/10 h-full">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#FF3816]/20">
-                  <MapPin className="w-8 h-8 text-[#FF3816]" />
+              <div className="relative p-8 md:p-10 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#FF3816]/10">
+                
+                <div className="flex flex-col md:flex-row gap-8 items-start md:items-center border-b border-[#112C3E] pb-8 mb-8">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#FF3816]/20">
+                        <MapPin className="w-8 h-8 text-[#FF3816]" />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-white mb-2">In-Person Locations</h3>
+                        <p className="text-gray-400 max-w-2xl">
+                            Experience our immersive sessions in our premium corporate rooms located in 5 major cities.
+                        </p>
+                    </div>
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-white">Locations</h3>
-                <div className="h-1 w-12 bg-gradient-to-r from-[#FF3816] to-transparent rounded-full mb-4"></div>
-                <p className="text-gray-400 leading-relaxed mb-3">
-                  In-person modality available in:
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {['MDQ', 'Rosario', 'Mendoza', 'Salta', 'Córdoba'].map((city) => (
-                    <span key={city} className="px-3 py-1 bg-[#EE7203]/10 text-[#EE7203] text-sm font-medium rounded-full border border-[#EE7203]/20">
-                      {city}
-                    </span>
+
+                {/* Grid interno de 3 a 5 columnas para las ciudades */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {[
+                    { city: 'Mar del Plata', room: 'Bristol Room' },
+                    { city: 'Rosario', room: 'Pichincha Room' },
+                    { city: 'Córdoba', room: 'Córdoba Room' },
+                    { city: 'Salta', room: 'Cafayate Room' },
+                    { city: 'Mendoza', room: 'Mendoza Room' },
+                  ].map((item) => (
+                    <div 
+                        key={item.city} 
+                        className="bg-[#112C3E]/50 border border-[#112C3E] rounded-xl p-4 hover:bg-[#EE7203]/10 hover:border-[#EE7203]/30 transition-all duration-300 group/item text-center"
+                    >
+                      <span className="block text-white font-bold text-sm mb-1">{item.city}</span>
+                      <span className="inline-block text-[#EE7203] text-[10px] font-bold uppercase tracking-wider bg-[#EE7203]/10 px-2 py-0.5 rounded group-hover/item:bg-[#EE7203] group-hover/item:text-white transition-colors">
+                        {item.room}
+                      </span>
+                    </div>
                   ))}
                 </div>
+
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -441,6 +488,127 @@ export default function EnglishBoosterLanding() {
         onToggle={toggleCapsule} 
       />
 
+{/* --- PROMO: CONVERSATIONAL CLUB --- */}
+      <section className="py-24 px-6 relative overflow-hidden bg-[#091821]">
+  {/* Ya no necesitas el div con bg-[#0C212D] porque la section tiene su propio bg */}
+  <div className="absolute inset-0">
+    <div className="absolute inset-0 bg-gradient-to-r from-[#EE7203]/10 to-[#112C3E]/50 opacity-30"></div>
+  </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="relative rounded-3xl overflow-hidden border border-[#EE7203]/40 bg-[#08151D] shadow-2xl">
+            {/* Decorative Top Line */}
+            <div className="h-2 w-full bg-gradient-to-r from-[#EE7203] via-[#FF3816] to-[#EE7203]"></div>
+            
+            <div className="grid lg:grid-cols-2 gap-12 p-8 md:p-12 items-center">
+              
+              {/* Left: Content */}
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EE7203]/10 text-[#EE7203] rounded-full text-xs font-bold uppercase tracking-wider border border-[#EE7203]/20">
+                  <Star size={14} fill="currentColor" />
+                  Premium In-Person Experience
+                </div>
+                
+                <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+                  Looking for continuous <br />
+                  <span className="text-[#EE7203]">Conversation Practice?</span>
+                </h2>
+                
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  Discover the <strong>Conversational Club Federal</strong>. Eliminate the gap between classroom English and authentic real-world communication.
+                </p>
+
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-gray-400">
+                    <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
+                    <span>Tailored for <strong>B1 & B2 Ahead</strong> Levels</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-400">
+                    <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
+                    <span>Small groups (8 spots) in <strong>5 major cities</strong></span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-400">
+                    <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
+                    <span>Discuss current events & real-world topics</span>
+                  </li>
+                </ul>
+
+                <div className="pt-4">
+                  <a 
+                    href="https://conversationalclub-federal.furthercorporate.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#0C212D] font-bold rounded-xl hover:bg-[#EE7203] hover:text-white transition-all duration-300 shadow-lg hover:shadow-[#EE7203]/30 transform hover:-translate-y-1"
+                  >
+                    Explore Conversational Club
+                    <ExternalLink size={20} />
+                  </a>
+                </div>
+              </div>
+
+              {/* Right: Visual Abstract Representation */}
+              <div className="relative h-full min-h-[300px] bg-gradient-to-br from-[#112C3E] to-[#091821] rounded-2xl border border-[#112C3E] p-8 flex flex-col justify-center items-center text-center overflow-hidden group">
+                 {/* Decorative Blobs */}
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#EE7203]/20 rounded-full blur-[80px] group-hover:bg-[#EE7203]/30 transition-colors"></div>
+                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FF3816]/20 rounded-full blur-[80px] group-hover:bg-[#FF3816]/30 transition-colors"></div>
+                 
+                 <div className="relative z-10 space-y-4">
+                    <div className="w-20 h-20 bg-[#EE7203] rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-[#EE7203]/20 rotate-3 group-hover:rotate-6 transition-transform">
+                      <MessageCircle size={40} className="text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">Federal Network</h3>
+                    <p className="text-sm text-gray-400">
+                      Mar del Plata • Rosario • Córdoba <br/> Salta • Mendoza
+                    </p>
+                 </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- FAQ SECTION (SIN FONDO, TARJETAS DE ALTO CONTRASTE) --- */}
+      <section className="py-24 relative border-y border-[#112C3E]">
+        
+        {/* Patrón de puntos sutil para dar textura al fondo vacío */}
+        <div className="absolute inset-0 bg-[radial-gradient(#1E3A4C_1px,transparent_1px)] [background-size:20px_20px] opacity-20 pointer-events-none"></div>
+        
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 p-3 bg-[#112C3E] rounded-full border border-[#EE7203]/20 shadow-lg shadow-[#EE7203]/10">
+               <HelpCircle size={32} className="text-[#EE7203]" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-[#EE7203] to-[#FF3816] mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid gap-6">
+            {faqs.map((faq, index) => (
+              <div key={index} className="group relative bg-[#132F42] p-8 rounded-2xl border border-[#2A4A61] hover:border-[#EE7203] transition-all duration-300 shadow-xl hover:shadow-[#EE7203]/10 hover:-translate-y-1">
+                
+                {/* Efecto de luz naranja lateral al hacer hover */}
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#EE7203] rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                <div className="flex items-start gap-5">
+                  {/* Icono Q: Fondo oscuro para contrastar con la tarjeta clara */}
+                  <div className="mt-1 bg-[#091821] p-3 rounded-xl text-[#EE7203] border border-[#2A4A61] group-hover:border-[#EE7203]/50 group-hover:scale-110 transition-all shadow-inner">
+                    <span className="font-bold text-lg leading-none">Q.</span>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-xl mb-3 group-hover:text-[#EE7203] transition-colors">{faq.question}</h3>
+                    {/* Texto más claro para mejor lectura */}
+                    <p className="text-gray-300 text-base leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       {/* --- ENHANCED FOOTER --- */}
       <footer id="contact" className="relative bg-[#091821] border-t border-[#112C3E] pt-24 pb-10 overflow-hidden">
         {/* Background decoration */}
@@ -508,10 +676,10 @@ export default function EnglishBoosterLanding() {
                       <div className="overflow-hidden">
                         <p className="text-white font-medium mb-1">Email Us</p>
                         <a 
-                          href="mailto:coordinacionejecutivafurther@gmail.com" 
+                          href="mailto:coordinacionacademica@furthercorporate.com" 
                           className="text-gray-400 text-sm hover:text-[#EE7203] transition-colors leading-relaxed block break-all"
                         >
-                          coordinacionejecutivafurther@gmail.com
+                          coordinacionacademica@furthercorporate.com
                         </a>
                       </div>
                     </div>
@@ -582,7 +750,7 @@ export default function EnglishBoosterLanding() {
       </footer>
 
       {/* --- CHATBOT WIDGET --- */}
-      <ChatbotWidget preSelectedCapsules={selectedCapsules} />
+<ChatbotWidget preSelectedModules={selectedCapsules} />
 
    
       
