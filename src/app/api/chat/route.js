@@ -72,8 +72,6 @@ export async function POST(req) {
       1. Full Name
       2. Email Address
       3. Selected Location (Must be one of the valid Cities).
-      4. **Current English Level (CEFR Standard)**: Ask them to estimate their level using the CEFR scale: **A1, A2, B1, B2, C1, or C2**.
-      5. Reason for joining (Motivation).
     
     **PHASE 4: CONFIRMATION (CRITICAL)**
     - Display a clear summary of the collected data.
@@ -89,8 +87,6 @@ export async function POST(req) {
       "email": "...",
       "location": "...",
       "modules": ["Module 1", "Module 2"],
-      "englishLevel": "...",
-      "motivation": "..."
     }
         **CRITICAL**: In the "modules" array, you MUST use the EXACT module titles from the KNOWLEDGE BASE 
     (e.g., "Boost Your Speaking Confidence", "Pronunciation Essentials", "Meetings That Flow"), 
