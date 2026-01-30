@@ -74,7 +74,6 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
     
     if (!textToSend.trim() || loading) return;
 
-    // Aseguramos que el botón se oculte al enviar cualquier mensaje
     setShowQuickAction(false);
 
     const userMessage = { from: 'user', text: textToSend };
@@ -88,7 +87,6 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
         content: m.text
       }));
 
-      // LÓGICA DE CONTEXTO: Si hay módulos seleccionados, le avisamos a la IA
       if (preSelectedModules.length > 0) {
         const contextString = `[SYSTEM CONTEXT: The user has visually selected: "${preSelectedModules.join(', ')}". If the user says "proceed", "register" or "already selected", start the registration for these modules strictly.]`;
         apiMessages.push({ role: "system", content: contextString });
@@ -110,41 +108,56 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
         if (cleanJson.startsWith('{') && cleanJson.endsWith('}')) {
           const parsedData = JSON.parse(cleanJson);
           if (parsedData.action === 'register_user') {
-            setMessages(prev => [...prev, { from: 'bot', text: "⏳ **Checking availability...** Please wait a moment." }]);
+            setMessages(prev => [...prev, { from: 'bot', text: "⏳ **Checking availability...** Please wait." }]);
             
-            // MAPEO DE SEGURIDAD (Si tu backend espera 'capsules' en lugar de 'modules')
-            // Si ya cambiaste tu backend para recibir 'modules', puedes borrar la línea 'capsules: ...'
             const payload = {
                 ...parsedData,
-                capsules: parsedData.modules || parsedData.capsules // Compatibilidad
+                capsules: parsedData.modules || parsedData.capsules
             };
 
             try {
               const regRes = await fetch('/api/register', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(payload)
               });
               const regData = await regRes.json();
+              
+              // ACTUALIZACIÓN: Leer el status y reply de n8n
               if (regData.status === 'confirmed') {
-                setMessages(prev => [...prev, { from: 'bot', text: `✅ **Confirmed!** ${regData.message}\n\nSee you on **February 23rd**!` }]);
+                setMessages(prev => [...prev, { 
+                  from: 'bot', 
+                  text: `✅ ${regData.reply || "Registration successful! We'll contact you via email shortly with details."}` 
+                }]);
               } else if (regData.status === 'waitlist') {
-                setMessages(prev => [...prev, { from: 'bot', text: `⚠️ **Capacity Full.** ${regData.message}\nWe will notify you as soon as a spot opens up.` }]);
+                setMessages(prev => [...prev, { 
+                  from: 'bot', 
+                  text: `⚠️ ${regData.reply || "All modules are full. You've been added to the waitlist. We'll notify you if spots open up."}` 
+                }]);
               } else {
-                setMessages(prev => [...prev, { from: 'bot', text: "✅ Data received, check your email." }]);
+                // Fallback si no hay status definido
+                setMessages(prev => [...prev, { 
+                  from: 'bot', 
+                  text: regData.reply || "✅ Data received, check your email." 
+                }]);
               }
             } catch (error) {
-              setMessages(prev => [...prev, { from: 'bot', text: "⚠️ Connection error." }]);
+              console.error(error);
+              setMessages(prev => [...prev, { from: 'bot', text: "⚠️ Connection error. Please try again." }]);
             }
             setLoading(false);
             return; 
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
 
       setMessages(prev => [...prev, { from: 'bot', text: botReply }]);
 
     } catch (err) {
       console.error(err);
-      setMessages(prev => [...prev, { from: 'bot', text: '⚠️ Something went wrong.' }]);
+      setMessages(prev => [...prev, { from: 'bot', text: '⚠️ Something went wrong. Please try again.' }]);
     } finally {
       setLoading(false);
     }
