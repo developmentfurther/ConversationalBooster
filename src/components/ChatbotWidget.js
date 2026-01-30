@@ -116,35 +116,43 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
             };
 
             try {
-              const regRes = await fetch('/api/register', {
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify(payload)
-              });
-              const regData = await regRes.json();
-              
-              // ACTUALIZACIÓN: Leer el status y reply de n8n
-              if (regData.status === 'confirmed') {
-                setMessages(prev => [...prev, { 
-                  from: 'bot', 
-                  text: `✅ ${regData.reply || "Thank you for registering! We’re happy to confirm that your spot is secured. You’ll receive the details via email."}` 
-                }]);
-              } else if (regData.status === 'waitlist') {
-                setMessages(prev => [...prev, { 
-                  from: 'bot', 
-                  text: `⚠️ ${regData.reply || "Thank you for registering! All the modules you selected are currently full, but we’ll contact you as soon as a spot opens up."}` 
-                }]);
-              } else {
-                // Fallback si no hay status definido
-                setMessages(prev => [...prev, { 
-                  from: 'bot', 
-                  text: regData.reply || "✅ Data received, check your email." 
-                }]);
-              }
-            } catch (error) {
-              console.error(error);
-              setMessages(prev => [...prev, { from: 'bot', text: "⚠️ Connection error. Please try again." }]);
-            }
+  const regRes = await fetch('/api/register', {
+    method: 'POST', 
+    headers: { 'Content-Type': 'application/json' }, 
+    body: JSON.stringify(payload)
+  });
+  const regData = await regRes.json();
+  
+  // Manejo de los 3 casos
+  if (regData.status === 'confirmed') {
+    // Todos confirmados
+    setMessages(prev => [...prev, { 
+      from: 'bot', 
+      text: ` ${regData.reply || "You're enrolled in all selected modules! We'll contact you shortly with details."}` 
+    }]);
+  } else if (regData.status === 'partial') {
+    // Mixto
+    setMessages(prev => [...prev, { 
+      from: 'bot', 
+      text: ` ${regData.reply || "You're enrolled in the available modules. Some were full, so you've been waitlisted for those. We'll email you the details."}` 
+    }]);
+  } else if (regData.status === 'waitlist') {
+    // Todos waitlist
+    setMessages(prev => [...prev, { 
+      from: 'bot', 
+      text: ` ${regData.reply || "All modules are currently full. You've been added to the waitlist. We'll notify you if spots open up."}` 
+    }]);
+  } else {
+    // Fallback
+    setMessages(prev => [...prev, { 
+      from: 'bot', 
+      text: regData.reply || "✅ Registration received. Check your email for details." 
+    }]);
+  }
+} catch (error) {
+  console.error(error);
+  setMessages(prev => [...prev, { from: 'bot', text: "⚠️ Connection error. Please try again." }]);
+}
             setLoading(false);
             return; 
           }
