@@ -25,6 +25,7 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                     <p className="text-gray-400 text-sm leading-relaxed">
                         Select the modules you are interested in by clicking the <span className="inline-flex items-center justify-center w-5 h-5 bg-[#0C212D] rounded-full border border-[#EE7203]/30 mx-1"><Plus size={12} className="text-[#EE7203]"/></span> button. 
                         Once you're ready, open the <strong>"Register via Chat"</strong> assistant to complete your enrollment instantly.
+                        Enrollment in the program is handled through the Further chatbot, which will guide you step by step through the registration process and the required enrollment in Workday.
                     </p>
                 </div>
             </div>

@@ -128,19 +128,19 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
     // Todos confirmados
     setMessages(prev => [...prev, { 
       from: 'bot', 
-      text: ` ${regData.reply || "You're enrolled in all selected modules! We'll contact you shortly with details."}` 
+      text: ` ${regData.reply || "Thank you for registering! We’re happy to confirm that your spot is secured in all the modules you selected"}` 
     }]);
   } else if (regData.status === 'partial') {
     // Mixto
     setMessages(prev => [...prev, { 
       from: 'bot', 
-      text: ` ${regData.reply || "You're enrolled in the available modules. Some were full, so you've been waitlisted for those. We'll email you the details."}` 
+      text: ` ${regData.reply || "Thank you for registering! Your spot is secured in the available modules. Some selected modules were full. We'll email you the details."}` 
     }]);
   } else if (regData.status === 'waitlist') {
     // Todos waitlist
     setMessages(prev => [...prev, { 
       from: 'bot', 
-      text: ` ${regData.reply || "All modules are currently full. You've been added to the waitlist. We'll notify you if spots open up."}` 
+      text: ` ${regData.reply || "Thank you for registering! All the modules you selected are currently full, but we’ll contact you as soon as a spot opens up."}` 
     }]);
   } else {
     // Fallback
