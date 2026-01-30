@@ -127,12 +127,12 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
               if (regData.status === 'confirmed') {
                 setMessages(prev => [...prev, { 
                   from: 'bot', 
-                  text: `✅ ${regData.reply || "Registration successful! We'll contact you via email shortly with details."}` 
+                  text: `✅ ${regData.reply || "Thank you for registering! We’re happy to confirm that your spot is secured. You’ll receive the details via email."}` 
                 }]);
               } else if (regData.status === 'waitlist') {
                 setMessages(prev => [...prev, { 
                   from: 'bot', 
-                  text: `⚠️ ${regData.reply || "All modules are full. You've been added to the waitlist. We'll notify you if spots open up."}` 
+                  text: `⚠️ ${regData.reply || "Thank you for registering! All the modules you selected are currently full, but we’ll contact you as soon as a spot opens up."}` 
                 }]);
               } else {
                 // Fallback si no hay status definido
