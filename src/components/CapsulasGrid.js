@@ -1,13 +1,37 @@
 import React from 'react';
 // 1. IMPORTA EL ICONO CALENDAR
 import { CheckCircle2, Plus, Check, MessageCircle, Sparkles, Calendar } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+
+// 2. DEFINIR ANIMACIONES
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+  }
+};
 
 export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
   
+
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       
-      <div className="text-center mb-20">
+      {/* 3. ANIMAR HEADER (Título y Banner) */}
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        className="text-center mb-20"
+      >
         <h2 className="text-3xl md:text-5xl font-bold mb-6">Modules</h2>
         
         {/* Banner explicativo del Chatbot */}
@@ -30,15 +54,22 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                 </div>
             </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+     <motion.div 
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }} // Margen para que empiece un poco antes
+        variants={staggerContainer}
+      >
         {modules.map((mod) => {
           const isSelected = selectedIds.includes(mod.title);
 
           return (
-            <div 
+            <motion.div 
               key={mod.id} 
+              variants={fadeInUp} // Hereda la animación
               className={`group relative flex flex-col bg-[#112C3E] rounded-3xl overflow-hidden border transition-all duration-300 hover:shadow-2xl 
               ${isSelected 
                 ? 'border-[#EE7203] shadow-[0_0_30px_rgba(238,114,3,0.15)] -translate-y-2' 
@@ -91,7 +122,7 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
                       <Calendar size={16} className="text-[#EE7203]" />
                       <span className="text-xs font-bold uppercase tracking-wide">Dates</span>
                     </div>
-                    <div className="flex gap-3 text-sm font-mono text-white">
+                    <div className="flex gap-3 text-sm text-white">
                       <div className="flex flex-col items-end leading-none gap-1">
                         <span className="opacity-60 text-[10px] uppercase">Session 1</span>
                         <span>{mod.schedule.s1}</span>
@@ -117,10 +148,10 @@ export default function CapsulasGrid({ modules, selectedIds, onToggle }) {
               {isSelected && (
                 <div className="absolute inset-0 bg-[#EE7203]/5 pointer-events-none" />
               )}
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,10 +1,11 @@
 "use client"
 import React from 'react';
-import { MapPin, Clock, Calendar, MessageCircle, ChevronRight, Send, CheckCircle2, Globe, Mail, Phone, Target, Mic, Briefcase, Users, Zap, ArrowRight, Sparkles, Instagram, Linkedin, Youtube, HelpCircle, ExternalLink, Star } from 'lucide-react';
+import { MapPin, Clock, Calendar,X ,MessageCircle, ChevronRight, Menu, CheckCircle2, Globe, Mail, Phone, Target, Mic, Briefcase, Users, Zap, ArrowRight, Sparkles, Instagram, Linkedin, Youtube, HelpCircle, ExternalLink, Star } from 'lucide-react';
 import Image from 'next/image';
 import ChatbotWidget from '@/components/ChatbotWidget';
 import CapsulasGrid from '@/components/CapsulasGrid';
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 // TU DATA PROVISTA
 const modules = [
@@ -111,10 +112,21 @@ const faqs = [
   }
 ];
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+};
+
 export default function EnglishBoosterLanding() {
   // ESTADO PARA "EL CARRITO"
   const [selectedCapsules, setSelectedCapsules] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // Lógica para añadir/quitar
   const toggleCapsule = (title) => {
     setSelectedCapsules(prev => {
@@ -127,12 +139,15 @@ export default function EnglishBoosterLanding() {
   };
   
   return (
-    <main className="min-h-screen bg-[#0C212D] text-white selection:bg-[#EE7203] selection:text-white font-sans">
+    <main className="min-h-screen bg-[#0C212D] text-white selection:bg-[#EE7203] selection:text-white ">
       
-      {/* --- ENHANCED NAVBAR --- */}
-      <nav className="fixed w-full z-50 bg-[#0C212D]/95 backdrop-blur-xl border-b border-[#112C3E] shadow-lg shadow-black/10">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          {/* Logo */}
+      {/* Navigation (Robust & Mobile Ready) */}
+      <header className="fixed w-full z-50 bg-[#0C212D]/95 backdrop-blur-xl border-b border-[#112C3E] shadow-lg shadow-black/10 transition-all duration-300">
+        
+        {/* Contenedor Flex Principal */}
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative z-50">
+          
+          {/* A. LOGO */}
           <div className="flex items-center transform hover:scale-105 transition-transform duration-300">
             <Image 
               src="/images/logo.png"
@@ -140,34 +155,87 @@ export default function EnglishBoosterLanding() {
               width={180}
               height={50}
               priority
+              className="w-32 sm:w-[180px] h-auto object-contain"
             />
           </div>
           
+          {/* B. DESKTOP MENU */}
           <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300 items-center">
-            <a href="#program" className="hover:text-[#EE7203] transition-colors relative group">
-              Program
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EE7203] group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#modules" className="hover:text-[#EE7203] transition-colors relative group">
-              Modules
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EE7203] group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#locations" className="hover:text-[#EE7203] transition-colors relative group">
-              Locations
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EE7203] group-hover:w-full transition-all duration-300"></span>
-            </a>
+            {['Program', 'Modules', 'Locations'].map((item) => (
+              <a 
+                key={item} 
+                href={`#${item.toLowerCase()}`} 
+                className="hover:text-[#EE7203] transition-colors relative group"
+              >
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EE7203] group-hover:w-full transition-all duration-300"></span>
+              </a>
+            ))}
+            
             <button 
-              onClick={() => setIsChatOpen(true)} // <-- ESTO ABRE EL CHAT
+              onClick={() => setIsChatOpen(true)}
               className="group px-6 py-2.5 bg-gradient-to-r from-[#FF3816] to-[#EE7203] text-white rounded-full hover:shadow-xl hover:shadow-[#FF3816]/30 transition-all duration-300 hover:-translate-y-0.5 font-semibold flex items-center gap-2 cursor-pointer"
             >
               <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
               Register in Bot
             </button>
           </div>
+
+          {/* C. MOBILE TOGGLE BUTTON (Con corrección de hidratación) */}
+          <button 
+            className="md:hidden text-gray-300 hover:text-white p-2 focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            suppressHydrationWarning={true} // <--- ESTO SOLUCIONA EL ERROR DE MCAFEE
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+
         </div>
-      </nav>
 
+        {/* D. MOBILE MENU OVERLAY (Fuera del flex container para evitar errores de nesting) */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden bg-[#0C212D] border-b border-[#EE7203]/30 overflow-hidden w-full relative z-40"
+            >
+              <div className="px-6 py-8 flex flex-col items-center space-y-6">
+                
+                {/* Mobile Links */}
+                {['Program', 'Modules', 'Locations'].map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-lg font-medium text-gray-300 hover:text-[#EE7203] transition-colors w-full text-center py-2"
+                  >
+                    {item}
+                  </a>
+                ))}
 
+                {/* Divider */}
+                <div className="w-16 h-[1px] bg-white/10" />
+
+                {/* Mobile CTA Button */}
+                <button 
+                  onClick={() => {
+                    setIsChatOpen(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full max-w-xs px-6 py-4 bg-gradient-to-r from-[#FF3816] to-[#EE7203] text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-[#FF3816]/20 transition-all flex items-center justify-center gap-3"
+                >
+                  <MessageCircle size={20} />
+                  Register in Bot
+                </button>
+
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
       {/* --- ENHANCED HERO SECTION CON VIDEO --- */}
       <section className="relative pt-40 pb-32 px-6 overflow-hidden">
         
@@ -188,58 +256,59 @@ export default function EnglishBoosterLanding() {
           {/* MAIN HERO GRID */}
           <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
             
-            {/* LEFT COLUMN: TEXT & CTA */}
-            <div className="space-y-8 animate-fadeIn">
+            {/* LEFT COLUMN: TEXT & CTA (Animación Staggered) */}
+            <motion.div 
+              className="space-y-8"
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer} // Activa la cascada de animaciones
+            >
               
-              {/* Badge with enhanced styling */}
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#112C3E] to-[#0d2230] text-[#EE7203] text-xs font-bold tracking-widest uppercase rounded-full border border-[#EE7203]/30 shadow-lg shadow-[#EE7203]/10 backdrop-blur-sm">
+              {/* Badge */}
+              <motion.div variants={fadeInUp} className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#112C3E] to-[#0d2230] text-[#EE7203] text-xs font-bold tracking-widest uppercase rounded-full border border-[#EE7203]/30 shadow-lg shadow-[#EE7203]/10 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-[#FF3816] mr-2 animate-pulse shadow-[0_0_8px_rgba(255,56,22,0.6)]"></span>
                 Corporate Training Excellence
-              </div>
+              </motion.div>
               
-              {/* Main Headline with stagger animation */}
+              {/* Main Headline */}
               <div className="space-y-2">
-                <h1 className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter animate-slideUp">
-                  <span className="inline-block" style={{animationDelay: '0.1s'}}>ENGLISH</span>
-                </h1>
-                <h1 className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter animate-slideUp" style={{animationDelay: '0.2s'}}>
+                <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter">
+                  <span className="inline-block">ENGLISH</span>
+                </motion.h1>
+                <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EE7203] via-[#FF3816] to-[#EE7203] bg-[length:200%_auto] animate-gradient">
                     BOOSTER
                   </span>
-                </h1>
+                </motion.h1>
               </div>
               
-              {/* Subheadline with emphasis */}
-              <p className="text-2xl md:text-3xl font-light text-gray-300 max-w-xl leading-snug animate-slideUp" style={{animationDelay: '0.3s'}}>
+              {/* Subheadline */}
+              <motion.p variants={fadeInUp} className="text-2xl md:text-3xl font-light text-gray-300 max-w-xl leading-snug">
                 From <span className="text-white font-bold relative inline-block">
                   Daily Communication
                   <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#EE7203] to-transparent"></span>
                 </span> to <span className="text-[#EE7203] font-bold">Client Impact</span>
-              </p>
+              </motion.p>
               
               {/* Description */}
-              <p className="text-lg text-gray-400 max-w-xl leading-relaxed animate-slideUp" style={{animationDelay: '0.4s'}}>
+              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-xl leading-relaxed">
                 Highly practical <span className="text-white font-semibold">in-person modules</span> designed to solve specific communication challenges in English. Each session targets a concrete workplace problem with clear objectives and immediate results.
-              </p>
+              </motion.p>
               
               {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4 pt-4 animate-slideUp" style={{animationDelay: '0.5s'}}>
-                
+              <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 pt-4">
                 <a 
-  href="#modules" 
-  className="group px-10 py-5 bg-gradient-to-r from-[#EE7203] to-[#FF3816] text-white font-bold text-lg rounded-xl hover:shadow-2xl hover:shadow-[#EE7203]/40 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 relative overflow-hidden"
->
-  <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-  <span className="relative z-10">Start Boosting</span>
-  <ChevronRight size={24} className="relative z-10 group-hover:translate-x-2 transition-transform duration-300"/>
-</a>
-           
-                
-               
-              </div>
+                  href="#modules" 
+                  className="group px-10 py-5 bg-gradient-to-r from-[#EE7203] to-[#FF3816] text-white font-bold text-lg rounded-xl hover:shadow-2xl hover:shadow-[#EE7203]/40 hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 relative overflow-hidden"
+                >
+                  <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+                  <span className="relative z-10">Start Boosting</span>
+                  <ChevronRight size={24} className="relative z-10 group-hover:translate-x-2 transition-transform duration-300"/>
+                </a>
+              </motion.div>
 
               {/* Quick Stats Bar */}
-              <div className="flex flex-wrap gap-8 pt-6 animate-slideUp" style={{animationDelay: '0.6s'}}>
+              <motion.div variants={fadeInUp} className="flex flex-wrap gap-8 pt-6">
                 <div className="flex items-center gap-2 text-gray-400 group cursor-default">
                   <Zap size={20} className="text-[#EE7203] group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-medium">Immediate Application</span>
@@ -252,11 +321,16 @@ export default function EnglishBoosterLanding() {
                   <Target size={20} className="text-[#EE7203] group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-medium">Real Scenarios</span>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
             
-            {/* RIGHT COLUMN: VIDEO PLAYER */}
-            <div className="relative group animate-fadeIn" style={{animationDelay: '0.3s'}}>
+            {/* RIGHT COLUMN: VIDEO PLAYER (Animación Slide desde la derecha) */}
+            <motion.div 
+              className="relative group"
+              initial={{ opacity: 0, x: 50 }} // Empieza desplazado a la derecha
+              animate={{ opacity: 1, x: 0 }}  // Entra suavemente
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
               {/* Animated gradient border effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-[#EE7203] via-[#FF3816] to-[#EE7203] rounded-3xl blur-sm opacity-30 group-hover:opacity-60 transition-all duration-500 animate-gradient bg-[length:200%_auto]"></div>
               
@@ -275,7 +349,7 @@ export default function EnglishBoosterLanding() {
                   Your browser does not support the video tag.
                 </video>
                 
-                {/* Play indicator overlay (shown when video is paused) */}
+                {/* Play indicator overlay (shown when video is paused - si el video carga lento) */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-20 h-20 rounded-full bg-[#EE7203]/20 backdrop-blur-md flex items-center justify-center">
                     <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1"></div>
@@ -286,16 +360,17 @@ export default function EnglishBoosterLanding() {
               {/* Decorative floating elements */}
               <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#EE7203]/10 rounded-full blur-2xl animate-float"></div>
               <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-[#FF3816]/10 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
-            </div>
+            </motion.div>
+
           </div>
 
         </div>
       </section>
 
-      {/* --- NUEVA SECCIÓN: PROGRAM DETAILS (CON FONDO DISTINTO) --- */}
+      {/* --- PROGRAM DETAILS (Methodology & Objectives) --- */}
       <section className="py-24 bg-[#08151D] border-t border-[#112C3E] relative overflow-hidden">
         
-        {/* Decoración de fondo sutil para esta sección */}
+        {/* Background Gradients (Static) */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
             <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-[#EE7203]/5 rounded-full blur-[80px]" />
             <div className="absolute bottom-[20%] right-[-10%] w-[400px] h-[400px] bg-[#FF3816]/5 rounded-full blur-[80px]" />
@@ -303,18 +378,34 @@ export default function EnglishBoosterLanding() {
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           
-          {/* Título de la sección (Opcional, para dar contexto) */}
-          <div className="text-center mb-16">
+          {/* Header Title (Animado) */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Methodology & Objectives</h2>
              <div className="h-1 w-20 bg-gradient-to-r from-[#EE7203] to-[#FF3816] mx-auto rounded-full"></div>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          {/* Cards Grid (Animado Staggered) */}
+          <motion.div 
+            className="grid md:grid-cols-2 gap-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             
-            {/* What are the Modules? */}
-            <div className="relative group h-full">
+            {/* Card 1: What are the Modules */}
+            <motion.div 
+              variants={fadeInUp}
+              className="relative group h-full"
+            >
               <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/5 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative h-full p-8 bg-[#0C212D] rounded-3xl border border-[#112C3E] hover:border-[#EE7203]/30 transition-all duration-300 hover:-translate-y-1 shadow-2xl">
+              <div className="relative h-full p-8 bg-[#0C212D] rounded-3xl border border-[#112C3E] hover:border-[#EE7203]/30 transition-all duration-300 hover:-translate-y-1 shadow-2xl flex flex-col">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-14 h-14 rounded-2xl bg-[#112C3E] flex items-center justify-center border border-[#EE7203]/20 group-hover:scale-110 transition-transform duration-300">
                     <MessageCircle size={28} className="text-[#EE7203]" />
@@ -326,7 +417,8 @@ export default function EnglishBoosterLanding() {
                   <span className="text-[#EE7203] font-semibold">In-person training sessions</span>, highly practical and laser-focused. Each module is designed to address a specific English communication challenge in the workplace.
                 </p>
                 
-                <div className="space-y-4">
+                {/* CAMBIO: Quité 'mt-auto' aquí también para consistencia */}
+                <div className="space-y-4"> 
                   <div className="flex items-start gap-4 p-4 rounded-xl bg-[#091821] border border-[#112C3E]">
                     <div className="w-2 h-2 rounded-full bg-[#EE7203] mt-2.5 flex-shrink-0 shadow-[0_0_8px_#EE7203]"></div>
                     <p className="text-gray-400"><span className="text-white font-medium block mb-1">Clear structure</span> Each session has a defined start and finish.</p>
@@ -341,12 +433,15 @@ export default function EnglishBoosterLanding() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Module Objectives */}
-            <div className="relative group h-full">
+            {/* Card 2: Module Objectives */}
+            <motion.div 
+              variants={fadeInUp}
+              className="relative group h-full"
+            >
               <div className="absolute inset-0 bg-gradient-to-br from-[#FF3816]/5 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative h-full p-8 bg-[#0C212D] rounded-3xl border border-[#112C3E] hover:border-[#FF3816]/30 transition-all duration-300 hover:-translate-y-1 shadow-2xl">
+              <div className="relative h-full p-8 bg-[#0C212D] rounded-3xl border border-[#112C3E] hover:border-[#FF3816]/30 transition-all duration-300 hover:-translate-y-1 shadow-2xl flex flex-col">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-14 h-14 rounded-2xl bg-[#112C3E] flex items-center justify-center border border-[#FF3816]/20 group-hover:scale-110 transition-transform duration-300">
                     <Target size={28} className="text-[#FF3816]" />
@@ -358,60 +453,75 @@ export default function EnglishBoosterLanding() {
                   Every session is designed with <span className="text-[#FF3816] font-semibold">four core goals</span> in mind to ensure maximum efficiency:
                 </p>
                 
+                {/* CAMBIO: Quité 'mt-auto' de este div */}
                 <div className="grid grid-cols-1 gap-3">
-                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#EE7203] pl-4">
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#EE7203] pl-4 hover:bg-[#091821] transition-colors">
                     <span className="text-[#EE7203] font-bold text-lg">01</span>
                     <p className="text-gray-300 text-sm font-medium">Solve Real Workplace Situations</p>
                   </div>
-                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#FF3816] pl-4">
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#FF3816] pl-4 hover:bg-[#091821] transition-colors">
                     <span className="text-[#FF3816] font-bold text-lg">02</span>
                     <p className="text-gray-300 text-sm font-medium">Build Fluency & Confidence</p>
                   </div>
-                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#EE7203] pl-4">
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#EE7203] pl-4 hover:bg-[#091821] transition-colors">
                     <span className="text-[#EE7203] font-bold text-lg">03</span>
                     <p className="text-gray-300 text-sm font-medium">Acquire Immediate-Use Vocabulary</p>
                   </div>
-                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#FF3816] pl-4">
+                  <div className="flex items-center gap-4 p-3 bg-[#091821]/50 border-l-2 border-[#FF3816] pl-4 hover:bg-[#091821] transition-colors">
                     <span className="text-[#FF3816] font-bold text-lg">04</span>
                     <p className="text-gray-300 text-sm font-medium">Practice with Live Feedback</p>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+
+          </motion.div>
         </div>
       </section>
 
-     {/* --- LOGISTICS SECTION (LAYOUT "BENTO" / 2 FILAS) --- */}
+     {/* --- LOGISTICS SECTION (Animado) --- */}
       <section id="program" className="relative py-24 bg-[#091821] border-y border-[#112C3E] overflow-hidden">
         
-        <div className="absolute inset-0 opacity-5">
+        {/* Background Texture */}
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(238,114,3,0.1),transparent_50%)]"></div>
         </div>
         
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           
-          {/* Header igual que antes */}
-          <div className="text-center mb-16 animate-slideUp">
+          {/* Header Title (Animado) */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#112C3E]/50 rounded-full border border-[#EE7203]/20 mb-6">
               <Sparkles size={16} className="text-[#EE7203]" />
               <span className="text-sm font-semibold text-[#EE7203] uppercase tracking-wide">Program Details</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               Program <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EE7203] to-[#FF3816]">Logistics</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Flexible, focused sessions designed to fit your team's schedule and needs
             </p>
-          </div>
+          </motion.div>
 
-          {/* --- GRID NUEVO: 2 COLUMNAS --- */}
-          <div className="grid md:grid-cols-2 gap-6">
+          {/* Grid Layout (Animado Staggered) */}
+          <motion.div 
+            className="grid md:grid-cols-2 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             
             {/* 1. DURATION */}
-            <div className="group relative">
+            <motion.div variants={fadeInUp} className="group relative h-full">
               <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/10 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full">
+              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full flex flex-col">
                 <div className="flex items-start justify-between mb-6">
                     <div className="w-14 h-14 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#FF3816]/20">
                     <Clock className="w-7 h-7 text-[#FF3816]" />
@@ -419,19 +529,19 @@ export default function EnglishBoosterLanding() {
                     <span className="bg-[#FF3816]/10 text-[#FF3816] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-[#FF3816]/20">Time</span>
                 </div>
                 <h3 className="text-2xl font-bold mb-2 text-white">Duration</h3>
-                <p className="text-gray-400 leading-relaxed mb-4">
+                <p className="text-gray-400 leading-relaxed mb-4 flex-grow">
                   Each module lasts <strong className="text-white font-bold">4 hours</strong> total.
                 </p>
-                <div className="inline-block bg-[#112C3E] px-4 py-2 rounded-lg border border-[#EE7203]/20 text-sm text-gray-300">
+                <div className="inline-block bg-[#112C3E] px-4 py-2 rounded-lg border border-[#EE7203]/20 text-sm text-gray-300 self-start">
                     Split into <span className="text-[#EE7203] font-semibold">two 2-hour sessions</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
             
             {/* 2. FREQUENCY */}
-            <div className="group relative">
+            <motion.div variants={fadeInUp} className="group relative h-full">
               <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/10 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full">
+              <div className="relative p-8 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#EE7203]/10 h-full flex flex-col">
                 <div className="flex items-start justify-between mb-6">
                     <div className="w-14 h-14 bg-gradient-to-br from-[#112C3E] to-[#0d2230] rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-[#EE7203]/20">
                     <Calendar className="w-7 h-7 text-[#EE7203]" />
@@ -439,17 +549,17 @@ export default function EnglishBoosterLanding() {
                     <span className="bg-[#EE7203]/10 text-[#EE7203] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-[#EE7203]/20">Pace</span>
                 </div>
                 <h3 className="text-2xl font-bold mb-2 text-white">Frequency</h3>
-                <p className="text-gray-400 leading-relaxed mb-4">
+                <p className="text-gray-400 leading-relaxed mb-4 flex-grow">
                   <strong className="text-white font-bold">1 weekly encounter</strong> per module.
                 </p>
-                <div className="inline-block bg-[#112C3E] px-4 py-2 rounded-lg border border-[#EE7203]/20 text-sm text-gray-300">
+                <div className="inline-block bg-[#112C3E] px-4 py-2 rounded-lg border border-[#EE7203]/20 text-sm text-gray-300 self-start">
                     Designed for <span className="text-[#EE7203] font-semibold">immediate application</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* 3. LOCATIONS (FULL WIDTH) */}
-            <div id="locations" className="group relative md:col-span-2">
+            <motion.div variants={fadeInUp} id="locations" className="group relative md:col-span-2">
               <div className="absolute inset-0 bg-gradient-to-br from-[#FF3816]/10 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
               <div className="relative p-8 md:p-10 bg-gradient-to-br from-[#0C212D] to-[#091821] rounded-2xl border border-[#112C3E] hover:border-[#EE7203]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#FF3816]/10">
                 
@@ -465,7 +575,7 @@ export default function EnglishBoosterLanding() {
                     </div>
                 </div>
 
-                {/* Grid interno de 3 a 5 columnas para las ciudades */}
+                {/* Grid interno de ciudades */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {[
                     { city: 'Mar del Plata', room: 'Bristol Room' },
@@ -474,22 +584,23 @@ export default function EnglishBoosterLanding() {
                     { city: 'Salta', room: 'Cafayate Room' },
                     { city: 'Mendoza', room: 'Valle de Uco Room' },
                   ].map((item) => (
-                    <div 
+                    <motion.div 
+                        whileHover={{ scale: 1.05 }}
                         key={item.city} 
-                        className="bg-[#112C3E]/50 border border-[#112C3E] rounded-xl p-4 hover:bg-[#EE7203]/10 hover:border-[#EE7203]/30 transition-all duration-300 group/item text-center"
+                        className="bg-[#112C3E]/50 border border-[#112C3E] rounded-xl p-4 hover:bg-[#EE7203]/10 hover:border-[#EE7203]/30 transition-all duration-300 group/item text-center cursor-default"
                     >
                       <span className="block text-white font-bold text-sm mb-1">{item.city}</span>
                       <span className="inline-block text-[#EE7203] text-[10px] font-bold uppercase tracking-wider bg-[#EE7203]/10 px-2 py-0.5 rounded group-hover/item:bg-[#EE7203] group-hover/item:text-white transition-colors">
                         {item.room}
                       </span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
 
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
         </div>
       </section>
       
@@ -501,15 +612,22 @@ export default function EnglishBoosterLanding() {
         onToggle={toggleCapsule} 
       />
 
-{/* --- PROMO: CONVERSATIONAL CLUB --- */}
+{/* --- PROMO: CONVERSATIONAL CLUB (Animado) --- */}
       <section className="py-24 px-6 relative overflow-hidden bg-[#091821]">
-  {/* Ya no necesitas el div con bg-[#0C212D] porque la section tiene su propio bg */}
-  <div className="absolute inset-0">
-    <div className="absolute inset-0 bg-gradient-to-r from-[#EE7203]/10 to-[#112C3E]/50 opacity-30"></div>
-  </div>
+        
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#EE7203]/10 to-[#112C3E]/50 opacity-30"></div>
+        </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="relative rounded-3xl overflow-hidden border border-[#EE7203]/40 bg-[#08151D] shadow-2xl">
+          
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp} // Animación de entrada de la tarjeta completa
+            className="relative rounded-3xl overflow-hidden border border-[#EE7203]/40 bg-[#08151D] shadow-2xl"
+          >
             {/* Decorative Top Line */}
             <div className="h-2 w-full bg-gradient-to-r from-[#EE7203] via-[#FF3816] to-[#EE7203]"></div>
             
@@ -532,41 +650,44 @@ export default function EnglishBoosterLanding() {
                 </p>
 
                 <ul className="space-y-3">
-                  <li className="flex items-center gap-3 text-gray-400">
-                    <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
-                    <span>Tailored for <strong>B1 and above</strong> Levels</span>
-                  </li>
-                  <li className="flex items-center gap-3 text-gray-400">
-                    <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
-                    <span>Small groups (8 spots) in <strong>5 major cities</strong></span>
-                  </li>
-                  <li className="flex items-center gap-3 text-gray-400">
-                    <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
-                    <span>Discuss current events & real-world topics</span>
-                  </li>
+                  {[
+                    "Tailored for B1 and above Levels",
+                    "Small groups (8 spots) in 5 major cities",
+                    "Discuss current events & real-world topics"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-gray-400">
+                      <CheckCircle2 className="text-[#EE7203] shrink-0" size={20}/>
+                      <span dangerouslySetInnerHTML={{ __html: item.replace(/(B1 and above|5 major cities)/g, '<strong>$1</strong>') }} />
+                    </li>
+                  ))}
                 </ul>
 
                 <div className="pt-4">
-                  <a 
+                  <motion.a 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     href="https://conversationalclub-federal.furthercorporate.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#0C212D] font-bold rounded-xl hover:bg-[#EE7203] hover:text-white transition-all duration-300 shadow-lg hover:shadow-[#EE7203]/30 transform hover:-translate-y-1"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#0C212D] font-bold rounded-xl hover:bg-[#EE7203] hover:text-white transition-colors duration-300 shadow-lg hover:shadow-[#EE7203]/30"
                   >
                     Explore Conversational Club
                     <ExternalLink size={20} />
-                  </a>
+                  </motion.a>
                 </div>
               </div>
 
               {/* Right: Visual Abstract Representation */}
-              <div className="relative h-full min-h-[300px] bg-gradient-to-br from-[#112C3E] to-[#091821] rounded-2xl border border-[#112C3E] p-8 flex flex-col justify-center items-center text-center overflow-hidden group">
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="relative h-full min-h-[300px] bg-gradient-to-br from-[#112C3E] to-[#091821] rounded-2xl border border-[#112C3E] p-8 flex flex-col justify-center items-center text-center overflow-hidden group cursor-default"
+              >
                  {/* Decorative Blobs */}
-                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#EE7203]/20 rounded-full blur-[80px] group-hover:bg-[#EE7203]/30 transition-colors"></div>
-                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FF3816]/20 rounded-full blur-[80px] group-hover:bg-[#FF3816]/30 transition-colors"></div>
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#EE7203]/20 rounded-full blur-[80px] group-hover:bg-[#EE7203]/30 transition-colors duration-500"></div>
+                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FF3816]/20 rounded-full blur-[80px] group-hover:bg-[#FF3816]/30 transition-colors duration-500"></div>
                  
                  <div className="relative z-10 space-y-4">
-                    <div className="w-20 h-20 bg-[#EE7203] rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-[#EE7203]/20 rotate-3 group-hover:rotate-6 transition-transform">
+                    <div className="w-20 h-20 bg-[#EE7203] rounded-2xl flex items-center justify-center mx-auto shadow-xl shadow-[#EE7203]/20 rotate-3 group-hover:rotate-6 transition-transform duration-500">
                       <MessageCircle size={40} className="text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-white">Federal Network</h3>
@@ -574,64 +695,91 @@ export default function EnglishBoosterLanding() {
                       Mar del Plata • Rosario • Córdoba <br/> Salta • Mendoza
                     </p>
                  </div>
-              </div>
+              </motion.div>
 
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* --- FAQ SECTION (SIN FONDO, TARJETAS DE ALTO CONTRASTE) --- */}
+      {/* --- FAQ SECTION (Animado) --- */}
       <section className="py-24 relative border-y border-[#112C3E]">
         
-        {/* Patrón de puntos sutil para dar textura al fondo vacío */}
+        {/* Background Pattern (Static) */}
         <div className="absolute inset-0 bg-[radial-gradient(#1E3A4C_1px,transparent_1px)] [background-size:20px_20px] opacity-20 pointer-events-none"></div>
         
         <div className="max-w-4xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
+          
+          {/* Header (Animado) */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
             <div className="inline-block mb-4 p-3 bg-[#112C3E] rounded-full border border-[#EE7203]/20 shadow-lg shadow-[#EE7203]/10">
                <HelpCircle size={32} className="text-[#EE7203]" />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
             <div className="h-1 w-20 bg-gradient-to-r from-[#EE7203] to-[#FF3816] mx-auto rounded-full"></div>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-6">
+          {/* Grid de Preguntas (Animado Staggered) */}
+          <motion.div 
+            className="grid gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             {faqs.map((faq, index) => (
-              <div key={index} className="group relative bg-[#132F42] p-8 rounded-2xl border border-[#2A4A61] hover:border-[#EE7203] transition-all duration-300 shadow-xl hover:shadow-[#EE7203]/10 hover:-translate-y-1">
+              <motion.div 
+                key={index} 
+                variants={fadeInUp}
+                whileHover={{ y: -5 }} // Reemplaza al hover:-translate-y-1 para mayor suavidad
+                className="group relative bg-[#132F42] p-8 rounded-2xl border border-[#2A4A61] hover:border-[#EE7203] transition-colors duration-300 shadow-xl hover:shadow-[#EE7203]/10"
+              >
                 
                 {/* Efecto de luz naranja lateral al hacer hover */}
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#EE7203] rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                 <div className="flex items-start gap-5">
-                  {/* Icono Q: Fondo oscuro para contrastar con la tarjeta clara */}
+                  {/* Icono Q */}
                   <div className="mt-1 bg-[#091821] p-3 rounded-xl text-[#EE7203] border border-[#2A4A61] group-hover:border-[#EE7203]/50 group-hover:scale-110 transition-all shadow-inner">
                     <span className="font-bold text-lg leading-none">Q.</span>
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-xl mb-3 group-hover:text-[#EE7203] transition-colors">{faq.question}</h3>
-                    {/* Texto más claro para mejor lectura */}
                     <p className="text-gray-300 text-base leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
       
-      {/* --- ENHANCED FOOTER --- */}
+      {/* --- ENHANCED FOOTER (Animado) --- */}
       <footer id="contact" className="relative bg-[#091821] border-t border-[#112C3E] pt-24 pb-10 overflow-hidden">
+        
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#EE7203]/5 rounded-full blur-3xl pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-16 mb-20">
+          
+          <motion.div 
+            className="grid md:grid-cols-2 gap-16 mb-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             
             {/* Left Column: Brand & Slogan */}
-            <div className="space-y-6">
+            <motion.div variants={fadeInUp} className="space-y-6">
               <div className="inline-block">
                 <Image 
                   src="/images/logo.png"
@@ -662,16 +810,16 @@ export default function EnglishBoosterLanding() {
                 <CheckCircle2 size={16} className="text-[#EE7203]" />
                 <span className="text-sm text-gray-300">Trusted by leading companies</span>
               </div>
-            </div>
+            </motion.div>
             
             {/* Right Column: Contact Info */}
-            <div className="space-y-6">
+            <motion.div variants={fadeInUp} className="space-y-6">
               <div className="relative group">
                 {/* Glow Effect de fondo */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/5 to-transparent rounded-2xl blur-xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#EE7203]/5 to-transparent rounded-2xl blur-xl transition-opacity duration-500 group-hover:opacity-100 opacity-70"></div>
                 
                 {/* Contenedor Principal (Card) */}
-                <div className="relative bg-gradient-to-br from-[#112C3E]/40 to-[#0d2230]/20 p-8 rounded-2xl border border-[#112C3E] backdrop-blur-sm">
+                <div className="relative bg-gradient-to-br from-[#112C3E]/40 to-[#0d2230]/20 p-8 rounded-2xl border border-[#112C3E] backdrop-blur-sm hover:border-[#EE7203]/30 transition-colors duration-300">
                   
                   {/* Título */}
                   <div className="flex items-center gap-3 mb-8">
@@ -684,7 +832,10 @@ export default function EnglishBoosterLanding() {
                   <div className="space-y-6">
                     
                     {/* 1. EMAIL (Principal) */}
-                    <div className="group flex items-start gap-4 p-5 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203]/50 hover:bg-[#112C3E]/60 transition-all duration-300">
+                    <motion.div 
+                      whileHover={{ x: 5 }}
+                      className="group flex items-start gap-4 p-5 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203]/50 hover:bg-[#112C3E]/60 transition-all duration-300"
+                    >
                       <Mail className="text-[#EE7203] shrink-0 mt-1 group-hover:scale-110 transition-transform" size={20}/>
                       <div className="overflow-hidden">
                         <p className="text-white font-medium mb-1">Email Us</p>
@@ -695,7 +846,7 @@ export default function EnglishBoosterLanding() {
                           coordinacionacademica@furthercorporate.com
                         </a>
                       </div>
-                    </div>
+                    </motion.div>
 
                     {/* Separador Visual Sutil */}
                     <div className="h-px w-full bg-gradient-to-r from-transparent via-[#112C3E] to-transparent"></div>
@@ -705,48 +856,57 @@ export default function EnglishBoosterLanding() {
                       <p className="text-gray-400 text-sm mb-4 font-medium pl-1">Follow us</p>
                       <div className="flex gap-4">
                         {/* Instagram */}
-                        <a 
+                        <motion.a 
+                          whileHover={{ y: -3, scale: 1.05 }}
                           href="https://www.instagram.com/furthercorporate/" 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203] hover:text-[#EE7203] hover:-translate-y-1 text-gray-400 transition-all duration-300 shadow-sm"
+                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#EE7203] hover:text-[#EE7203] text-gray-400 transition-colors duration-300 shadow-sm"
                           aria-label="Instagram"
                         >
                            <Instagram size={22} />
-                        </a>
+                        </motion.a>
 
                         {/* LinkedIn */}
-                        <a 
+                        <motion.a 
+                          whileHover={{ y: -3, scale: 1.05 }}
                           href="https://www.linkedin.com/company/furthercorporate/posts/?feedView=all" 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#0077b5] hover:text-[#0077b5] hover:-translate-y-1 text-gray-400 transition-all duration-300 shadow-sm"
+                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#0077b5] hover:text-[#0077b5] text-gray-400 transition-colors duration-300 shadow-sm"
                           aria-label="LinkedIn"
                         >
                            <Linkedin size={22} />
-                        </a>
+                        </motion.a>
 
                         {/* YouTube */}
-                        <a 
+                        <motion.a 
+                          whileHover={{ y: -3, scale: 1.05 }}
                           href="https://www.youtube.com/@furthercorporate" 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#FF0000] hover:text-[#FF0000] hover:-translate-y-1 text-gray-400 transition-all duration-300 shadow-sm"
+                          className="flex-1 flex items-center justify-center p-3 bg-[#0C212D]/60 rounded-xl border border-[#112C3E] hover:border-[#FF0000] hover:text-[#FF0000] text-gray-400 transition-colors duration-300 shadow-sm"
                           aria-label="YouTube"
                         >
                            <Youtube size={22} />
-                        </a>
+                        </motion.a>
                       </div>
                     </div>
 
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           
           {/* Copyright Bar */}
-          <div className="border-t border-[#112C3E] pt-8">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="border-t border-[#112C3E] pt-8"
+          >
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
               <p>© {new Date().getFullYear()} Further Corporate. All rights reserved.</p>
               <div className="flex items-center gap-6">
@@ -758,7 +918,7 @@ export default function EnglishBoosterLanding() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </footer>
 

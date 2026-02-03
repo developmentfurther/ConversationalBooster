@@ -10,8 +10,7 @@
   --color-accent: #EE7203;
   --color-danger: #FF3816;
 
-  --font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  --font-sans: var(--font-poppins), Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* ===============================
