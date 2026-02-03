@@ -3,12 +3,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, Send, X, ArrowUpRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
 
 // Asegúrate de que en el padre le estés pasando la prop correcta: preSelectedModules={selectedCapsules}
 export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOpen }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
   
   // Estado del botón flotante
   const [showQuickAction, setShowQuickAction] = useState(false);
@@ -130,24 +132,28 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
       from: 'bot', 
       text: ` ${regData.reply || "Thank you for registering! We’re happy to confirm that your spot is secured in all the modules you selected"}` 
     }]);
+    setIsFinished(true);
   } else if (regData.status === 'partial') {
     // Mixto
     setMessages(prev => [...prev, { 
       from: 'bot', 
       text: ` ${regData.reply || "Thank you for registering! Your spot is secured in the available modules. Some selected modules were full. We'll email you the details."}` 
     }]);
+    setIsFinished(true);
   } else if (regData.status === 'waitlist') {
     // Todos waitlist
     setMessages(prev => [...prev, { 
       from: 'bot', 
       text: ` ${regData.reply || "Thank you for registering! All the modules you selected are currently full, but we’ll contact you as soon as a spot opens up."}` 
     }]);
+    setIsFinished(true);
   } else {
     // Fallback
     setMessages(prev => [...prev, { 
       from: 'bot', 
       text: regData.reply || "✅ Registration received. Check your email for details." 
     }]);
+    setIsFinished(true);
   }
 } catch (error) {
   console.error(error);
@@ -196,7 +202,13 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
         <div className="flex-1 p-5 overflow-y-auto space-y-4 bg-[#0C212D]/50 relative">
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.from === 'bot' ? 'gap-3' : 'justify-end'}`}>
-              {msg.from === 'bot' && <div className="w-9 h-9 rounded-full bg-[#EE7203] flex items-center justify-center text-white font-bold">F</div>}
+              {msg.from === 'bot' && 
+              <img 
+          src="/images/bot.png" // 👈 Asegúrate que la ruta sea correcta
+          alt="Bot" 
+          className="w-9 h-9 rounded-full object-cover bg-[#EE7203]" 
+        />
+              }
               <div className={`max-w-[75%] p-4 rounded-2xl text-sm ${msg.from === 'bot' ? 'bg-[#112C3E] text-gray-200' : 'bg-[#EE7203] text-white rounded-br-none'}`}>
                 
                 <ReactMarkdown components={{
@@ -212,43 +224,59 @@ export default function ChatbotWidget({ preSelectedModules = [], isOpen, setIsOp
               </div>
             </div>
           ))}
-          {loading && <div className="text-gray-400 text-xs">Typing...</div>}
+          {loading && (
+     <div className="flex gap-3 animate-fadeIn">
+       <img src="/images/bot.png" alt="Bot" className="w-9 h-9 rounded-full object-cover bg-[#EE7203]" />
+       <div className="bg-[#112C3E] p-4 rounded-2xl border border-white/10 flex gap-1 items-center h-10">
+         <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+         <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-100"></div>
+         <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-200"></div>
+       </div>
+     </div>
+  )}
           <div ref={messagesEndRef} />
         </div>
 
         {/* Input Area */}
-        <div className="bg-[#0C212D] p-4 flex flex-col gap-2">
-          
-          {/* --- BOTÓN DE ACCIÓN RÁPIDA (SUGGESTION CHIP) --- */}
-          {/* Se muestra si showQuickAction es true */}
-          {showQuickAction && (
-            <div className="flex justify-end animate-fadeIn">
-              <button 
-                onClick={handleQuickReply}
-                className="bg-[#112C3E] border border-[#EE7203]/50 hover:bg-[#EE7203] text-white text-xs py-2 px-4 rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg group"
-              >
-                <span>I have selected the modules I want</span>
-                <ArrowUpRight size={14} className="text-[#EE7203] group-hover:text-white transition-colors"/>
-              </button>
-            </div>
-          )}
+<div className="bg-[#0C212D] p-4 flex flex-col gap-2">
+  
+  {/* --- BOTÓN DE ACCIÓN RÁPIDA (SUGGESTION CHIP) --- */}
+  {/* Se muestra si showQuickAction es true Y NO ha terminado el proceso */}
+  {showQuickAction && !isFinished && (
+    <div className="flex justify-end animate-fadeIn">
+      <button 
+        onClick={handleQuickReply}
+        className="bg-[#112C3E] border border-[#EE7203]/50 hover:bg-[#EE7203] text-white text-xs py-2 px-4 rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg group"
+      >
+        <span>I have selected the modules I want</span>
+        <ArrowUpRight size={14} className="text-[#EE7203] group-hover:text-white transition-colors"/>
+      </button>
+    </div>
+  )}
 
-          <div className="flex gap-3">
-            <input 
-              value={input} 
-              onChange={e => setInput(e.target.value)} 
-              onKeyDown={e => e.key === 'Enter' && sendMessage()} 
-              placeholder="Type your answer..." 
-              className="flex-1 bg-[#112C3E] rounded-full px-5 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-[#EE7203]/50 transition-all" 
-            />
-            <button 
-              onClick={() => sendMessage()} 
-              className="p-3 bg-[#EE7203] rounded-full text-white hover:bg-[#FF3816] transition-colors shadow-lg hover:shadow-[#EE7203]/20"
-            >
-              <Send size={18} />
-            </button>
-          </div>
-        </div>
+  <div className="flex gap-3">
+    <input 
+      value={input} 
+      onChange={e => setInput(e.target.value)} 
+      onKeyDown={e => e.key === 'Enter' && sendMessage()} 
+      
+      // Lógica de bloqueo
+      disabled={loading || isFinished}
+      placeholder={isFinished ? "Registration completed." : "Type your answer..."}
+      
+      // Agregamos opacidad y cursor bloqueado si isFinished es true
+      className={`flex-1 bg-[#112C3E] rounded-full px-5 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-[#EE7203]/50 transition-all ${isFinished ? 'opacity-50 cursor-not-allowed placeholder-gray-400' : ''}`} 
+    />
+    <button 
+      onClick={() => sendMessage()} 
+      // Bloqueamos también el botón
+      disabled={!input.trim() || loading || isFinished}
+      className="p-3 bg-[#EE7203] rounded-full text-white hover:bg-[#FF3816] transition-colors shadow-lg hover:shadow-[#EE7203]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <Send size={18} />
+    </button>
+  </div>
+</div>
 
       </div>
 
